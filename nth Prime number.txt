@@ -1,0 +1,58 @@
+// Sieve of erasthones 
+int size = 1000000;
+  int arr[size]={0};
+  arr[2] = 1;
+  for(int i=3;i<size;i+=2)        //O(n)
+    arr[i] = 1;
+  for(int i=2;i<sqrt(size);i++){              // O(sqrt(n)log(log(n)))
+    if(arr[i]){
+      for(int j=i*i;j<size;j+=2*i){
+        arr[j] = 0; 
+      }
+    }
+  }
+
+// root n method
+bool isPrime(int n){
+   if(n==1) return false;
+   if(n==2) return true;
+   if(n%2 == 0) return false;
+   for(int i=3;i<=sqrt(n);i=i+2)
+      if(n%i == 0) return false;
+   return true;
+}
+
+
+Question :
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+int main() {
+	ll size = 10000000,max=1000000;
+	ll arr[size]={0},prime[max];
+	arr[2] = 1;
+	for(ll i=3;i<size;i+=2)        //O(n)
+		arr[i] = 1;
+	for(ll i=2;i<sqrt(size);i++){              // O(sqrt(n)log(log(n)))
+		if(arr[i]){
+			for(ll j=i*i;j<size;j+=2*i){
+				arr[j] = 0; 
+			}
+		}
+	}
+	int x=0;
+	for(ll i=2;i<size;i++){
+		if(arr[i]){
+			prime[x++] = i;
+		}
+	} 
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++){
+        ll count,k=3;
+        cin>>count;
+		cout<<prime[count-1]<<endl;
+    }
+	return 0;
+}

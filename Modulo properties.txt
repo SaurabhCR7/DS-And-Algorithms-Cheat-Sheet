@@ -1,0 +1,9 @@
+1. (a+b)%n = ((a%n)+(b%n))%n;
+2. (a-b)%n = ((a%n)-(b%n)+n)%n;
+3. (a*b)%n = ((a%n)*(b%n))%n;
+4. (a/b)%n = ((a%n)*(binv %n))%n;
+5. (a^b)%c; 
+    while(b){
+        ans = ((ans%c)*(a%c))%c;
+        b--;
+    }   

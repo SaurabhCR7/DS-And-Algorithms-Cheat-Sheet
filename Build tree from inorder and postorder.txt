@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+	public:
+	int data;
+	node *left,*right;
+	node(int d){
+		data = d;
+		left = right = NULL;
+	}
+};
+int ptr;
+
+node* build(int pos[],int ino[],int s,int e){
+	if(s>e)
+	return NULL;
+	node* root = new node(pos[ptr]);
+	int index = -1;
+	for(int j=s;j<=e;j++){
+		if(pos[ptr] == ino[j]){
+			index = j;
+			break;
+		}
+	}
+	ptr--;
+	root->right = build(pos,ino,index+1,e);
+	root->left = build(pos,ino,s,index-1);
+	return root;
+}
+
+void print(node* root){
+	if(!root)
+	return;
+	cout<<root->data<<" ";
+	print(root->left);
+	print(root->right);
+}
+
+int main() {
+	int t;
+	cin>>t;
+	for(int i=0;i<t;i++){
+		int n;
+		cin>>n;
+		ptr = n-1;
+		int pos[n],ino[n];
+		for(int j=0;j<n;j++){
+			cin>>ino[j];
+		}
+		for(int j=0;j<n;j++){
+			cin>>pos[j];
+		}
+		node* root = build(pos,ino,0,n-1);
+		print(root);
+		cout<<endl;
+	}
+	return 0;
+}

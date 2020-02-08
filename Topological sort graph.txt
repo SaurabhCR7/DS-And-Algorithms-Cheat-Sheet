@@ -1,0 +1,58 @@
+    //DFS
+    void dfsHelper(T node,map<T,bool>&visited,list<T>&ordering){
+        visited[node] = true;
+        for(T neighbour:adjList[node]){
+            if(!visited[neighbour]){
+                dfsHelper(neighbour,visited,ordering);
+                ordering.push_front(neighbour);
+            }
+        }
+    }
+    void dfs(){
+        map<T,bool>visited;
+        list<T>ordering;
+        int component = 0;
+        for(auto i:adjList){
+            T node = i.first;
+            if(!visited[node]){
+                dfsHelper(node,visited,ordering);
+                component++;
+                ordering.push_front(node);
+            }
+        }
+        for(auto i:ordering)
+        cout<<i<<" ";
+        cout<<endl;
+        cout<<component<<endl;
+    }
+    
+    //BFS
+    void bfsTopo(){
+        map<T,int>indegree;
+        map<T,bool>visited;
+        queue<T>q;
+        for(auto i:adjList){
+            visited[i.first] = 0;
+            indegree[i.first] = 0;
+        }
+        for(auto i:adjList){
+            for(auto j:adjList[i.first]){
+                indegree[j]++;
+            }
+        }
+        for(auto i:adjList){
+            if(indegree[i.first] == 0){
+                q.push(i.first);
+            }
+        }
+        while(!q.empty()){
+            T node = q.front();
+            cout<<node<<" ";
+            q.pop();
+            for(auto i:adjList[node]){
+                indegree[i]--;
+                if(indegree[i] == 0)
+                q.push(i);
+            }
+        }
+    }

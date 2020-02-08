@@ -1,0 +1,22 @@
+void print(node* root,map<int,node*>&m,int i){
+	if(!root)
+	return;
+	int hd = 0;
+	root->hd = hd;
+	queue<node*>q;
+	q.push(root);
+	while(!q.empty()){
+		node* temp = q.front();
+		q.pop();
+		hd = temp->hd;
+		m[hd] = temp;
+		if(temp->left){
+			q.push(temp->left);
+			temp->left->hd = hd-1;
+		}
+		if(temp->right){
+			q.push(temp->right);
+			temp->right->hd = hd+1;
+		}
+	}
+}

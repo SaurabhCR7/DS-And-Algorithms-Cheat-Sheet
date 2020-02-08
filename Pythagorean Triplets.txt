@@ -1,0 +1,13 @@
+(m^2-n^2 , 2*m*n , m^2+n^2)
+
+if N is odd then N = m^2 - n^2;
+(m+n)(m-n) = N*1
+m-n = 1
+m+n = N
+2*m = N+1 => m = (N+1)/2
+2*n = N-1 => n = (N-1)/2
+if N is even then N = 2*m*n;
+
+n=1
+m = N/2
+

@@ -1,0 +1,24 @@
+cout<<&x; //Address (in hexadecimal) of variable x
+cout<<&ch; //Prints character ch instead of address of ch because of & operator dominance in char
+Therefore, cout<<(void *)&ch;   //PC considers it is of type void and prints its address
+int* a = &x //a is a pointer variable which stores the address of x
+int* a;
+a = &x; //Also works
+Use same data type for pointer variable as of variable because the PC will look for that many bits determined by the data type.
+
+Dereferencing:
+*Address = variable
+*xptr or *(&x)= x;
+
+Pointer to Pointer variable / Double Pointer:
+int** xptr;
+
+Call By Reference
+
+function (int *xptr){
+*xptr = *xptr + 1;
+}
+int main(){ 
+   int x=32;
+   function(&x);
+}

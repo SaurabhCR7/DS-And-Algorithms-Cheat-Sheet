@@ -1,0 +1,64 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+
+template<typename T>
+
+class Graph{
+    map<T,list<T>>adjList;
+    public:
+    void addEdge(T u,T v,bool bidir=true){
+        adjList[u].push_back(v);
+        if(bidir)
+        adjList[v].push_back(u);
+    }
+
+    void bfs(T src,T dest){
+        queue<T>q;
+        map<T,int>dist;
+        q.push(src);
+        dist[src] = 0;
+        while(!q.empty()){
+            T node = q.front();
+            q.pop();
+            for(auto neighbour:adjList[node]){
+                if(!dist[neighbour]){
+                    q.push(neighbour);
+                    dist[neighbour] = dist[node] + 1;
+                }
+            }
+        }
+        cout<<dist[dest]<<endl;
+    }
+};
+
+int main() {
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++){
+        Graph<int> g;
+        int n,l,s;
+        cin>>n>>l>>s;
+        int board[n] = {0};
+        for(int j=0;j<l;j++){
+            int x,y;
+            cin>>x>>y;
+            board[x-1] = y-x;
+        }
+        for(int j=0;j<s;j++){
+            int x,y;
+            cin>>x>>y;
+            board[x-1] = y-x;
+        }
+        for(int j=0;j<n;j++){
+            int u=j+1;
+            for(int k=1;k<=6;k++){
+                int v = u + k + board[j];
+                g.addEdge(u,v,false);
+            }
+        }
+        g.bfs(1,n);
+        cout<<endl;
+    }
+    return 0;
+}

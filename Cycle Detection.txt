@@ -1,0 +1,23 @@
+// BFS Undirected
+
+bool isCyclic(T src){
+        map<T,T>parent;
+        map<T,bool>visited;
+        queue<T>q;
+        q.push(src);
+        parent[src] = src;
+        visited[src] = true;
+        while(!q.empty()){
+            T node = q.front();
+            q.pop();
+            for(auto i:adjList[node]){
+                if(visited[i] && parent[node] != i)
+                return true;
+                else if(!visited[i]){
+                    q.push(i);
+                    visited[i] = true;
+                    parent[i] = node;
+                }
+            }
+        }
+}

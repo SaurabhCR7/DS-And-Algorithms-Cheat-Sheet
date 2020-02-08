@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+
+int temp[1000000];
+
+void merge(int arr[],int start,int mid,int end){
+  int i=start,j=mid,k=0;
+  while(i<mid && j<end){
+    if(arr[i] <= arr[j]){
+      temp[k] = arr[i];
+      k++,i++;
+    }
+    else{
+      temp[k] = arr[j];
+      j++,k++;
+    }
+  }
+  while(i<mid){
+    temp[k] = arr[i];
+    i++,k++;
+  }
+  while(j<end){
+    temp[k] = arr[j];
+    j++,k++;
+  }
+  for(int x=0;x<k;x++){
+    arr[start+x] = temp[x];
+  }
+}
+
+void mergeSort(int arr[],int start,int end){
+  if(start>=end)
+  return;
+  int mid = (start+end)/2;
+  mergeSort(arr,start,mid);
+  if(mid+1<end)
+  mergeSort(arr,mid,end);
+  merge(arr,start,mid,end);
+}
+
+
+int main()
+{
+  //write your code here
+  int t;
+  cin>>t;
+  for(int i=0;i<t;i++){
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int j=0;j<n;j++)
+    cin>>arr[j];
+    mergeSort(arr,0,n);
+    for(int j=0;j<n;j++)
+    cout<<arr[j]<<" ";
+    cout<<endl;
+  }
+  return 0;
+}

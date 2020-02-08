@@ -1,0 +1,8 @@
+void modifyBST(node* root,int &sum){
+	if(!root)
+	return;
+	modifyBST(root->right,sum);
+	sum = sum + root->data;
+	root->data = sum;
+	modifyBST(root->left,sum);
+}

@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+template<typename T>
+
+class graph{
+    map<T,list<T>>adjList;
+    public:
+    void addEdge(T u,T v,bool bidir=true){
+        adjList[u].push_back(v);
+        if(bidir)
+        adjList[v].push_back(u);
+    }
+
+    void bfs(T src){
+        queue<T>q;
+        map<T,bool>visited;
+        q.push(src);
+        visited[src] = true;
+        while(!q.empty()){
+            T node = q.front();
+            q.pop();
+            cout<<node<<" ";
+            for(auto neighbour:adjList[node]){
+                if(!visited[neighbour]){
+                    q.push(neighbour);
+                    visited[neighbour] = true;
+                }
+            }
+        }
+	void dfsHelper(T node,map<T,bool>&visited){
+        visited[node] = true;
+        cout<<node<<" ";
+        for(T neighbour:adjList[node]){
+            if(!visited[neighbour]){
+                dfsHelper(neighbour,visited);
+            }
+        }
+    }
+    	void dfs(T src){
+          map<T,bool>visited;
+          dfsHelper(src,visited);
+    	}
+    };
+
+    void print(){
+        for(auto i:adjList){
+            cout<<i.first<<" -> ";
+            for(auto obj:i.second)
+            cout<<obj<<" , ";
+            cout<<endl;
+        }
+    }
+};
+
+int main() {
+    graph<int> g;
+    g.addEdge(2,3);
+    g.addEdge(4,3);
+    g.addEdge(2,4);
+    g.addEdge(2,5);
+    g.addEdge(5,6);
+    g.dfs(2);
+    return 0;
+}

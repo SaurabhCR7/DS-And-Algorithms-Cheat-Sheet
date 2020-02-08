@@ -1,0 +1,1 @@
+ a x b = LCM(a, b) * GCD (a, b)
