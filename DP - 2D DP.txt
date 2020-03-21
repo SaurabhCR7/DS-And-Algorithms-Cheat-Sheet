@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+int memo[1000][1000];
+
+int res(int arr[],int beg,int end,int year){
+    if(beg>end)
+    return 0;
+    if(memo[beg][end] != -1)
+    return memo[beg][end];
+    int q1 = arr[beg]*year + res(arr,beg+1,end,year+1);
+    int q2 = arr[end]*year + res(arr,beg,end-1,year+1);
+    memo[beg][end] = max(q1,q2);
+    return memo[beg][end];
+}
+
+int res2(int arr[],int n){
+    int dp[100][100];
+    int year=n;
+    for(int i=0;i<n;i++)
+    dp[i][i] = arr[i]*year;
+    year--;
+    for(int len=2;len<=n;len++){
+        int srt = 0;
+        int end = n-len;
+        while(srt<=end){
+            int endWindow = srt+len-1;
+            dp[srt][endWindow] = max(arr[srt]*year + dp[srt+1][endWindow],arr[endWindow]*year + dp[srt][endWindow-1]);
+            srt++;
+        }
+        year--;
+    }
+    return dp[0][n-1];
+}
+
+int main() {
+    int n;
+    cin>>n;
+    int arr[n];
+    // for(int i=0;i<n;i++){
+    //     for(int j=0;j<n;j++)
+    //     memo[i][j] = -1;
+    // }
+    for(int i=0;i<n;i++)
+    cin>>arr[i];
+    //cout<<res(arr,0,n-1,1)<<endl;
+    // for(int i=0;i<n;i++)
+    // memo[i][i] = arr[i]*n;
+    cout<<res2(arr,n)<<endl;
+    return 0;
+}

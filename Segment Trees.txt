@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void buildTree(int tree[],int arr[],int index,int s,int e){
+  if(s>e)
+  return;
+  if(s == e){
+    tree[index] = arr[s];
+    return;
+  }
+  int mid = (s+e)/2;
+  buildTree(tree,arr,2*index,s,mid);
+  buildTree(tree,arr,2*index + 1,mid+1,e);
+  int left = tree[2*index];
+  int right = tree[2*index + 1];
+  tree[index] = min(left,right);   // Min Query in range
+  tree[index] = left + right;	   // Sum Query in range
+  tree[index] = gcd(left,right);   // GCD in range
+}
+
+int ans(int tree[],int index,int qs,int qe,int s,int e){
+  if(qs > e || qe < s)
+  return INT_MAX;  	       // Min Query in range
+  return 0;  		       // Sum Query in range && GCD in range 
+  if(qs <= s && qe >= e)
+  return tree[index];
+  int mid = (s+e)/2;
+  int left = ans(tree,2*index,qs,qe,s,mid);
+  int right = ans(tree,2*index+1,qs,qe,mid+1,e);
+  return min(left,right);      // Min Query in range
+  return left+right;	       // Sum Query in range
+  return gcd(left,right);      // GCD in range
+}
+
+
+void updateNode(int tree[],int index,int s,int e,int i,int value){
+    if(i>s || i<e)
+    return;
+    if(s == e){
+        tree[index] = value;
+        return;
+    }
+    int mid = (s+e)/2;
+    updateNode(tree,2*index,s,mid,i,value);
+    updateNode(tree,2*index+1,mid+1,e,,i,value);
+    int left = tree[2*index];
+    int right = tree[2*index+1];
+    tree[index] = min(left,right);
+}
+
+
+void updateRange(int tree[],int index,int rs,int re,int s,int e,int inc){
+    if(re < s || rs > e)
+    return;
+    if(s == e){
+        tree[index] = tree[index] + inc;
+        return;
+    }
+    int mid = (s+e)/2;
+    updateRange(tree,2*index,rs,re,s,mid,inc);
+    updateRange(tree,2*index+1,rs,re,mid+1,e,inc);
+    int left = tree[2*index];
+    int right = tree[2*index+1];
+    tree[index] = min(left,right);
+}
+
+
+int main()
+{
+  int t;
+  cin>>t;
+  for(int i=0;i<t;i++){
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int j=0;j<n;j++)
+    cin>>arr[j];
+    int tree[4*n + 1];
+    buildTree(tree,arr,1,0,n-1);
+    int q;
+    cin>>q;
+    for(int k=0;k<q;k++){
+      int qs,qe;
+      cin>>qs>>qe;
+      cout<<ans(tree,1,qs-1,qe-1,0,n-1)<<endl;
+    }
+  }
+  return 0;
+}

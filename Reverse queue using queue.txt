@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+  int t;
+  cin>>t;
+  for(int i=0;i<t;i++){
+    int n;
+    cin>>n;
+    queue<int>q;
+    for(int j=0;j<n;j++){
+      int x;
+      cin>>x;
+      q.push(x);
+    }
+    queue<int>q1;
+    for(int j=0;j<n;j++){
+      int size = n-j-1;
+      while(size != 0){
+        int temp = q.front();
+        q.pop();
+        size--;
+        q.push(temp);
+      }
+      q1.push(q.front());
+      q.pop();
+    }
+    while(!q1.empty()){
+      cout<<q1.front()<<" ";
+      q1.pop();
+    }
+    cout<<endl;
+  }
+  return 0;
+}

@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isValid(int arr[],int n,int m,int mid){
+  int student = 1;
+  int sum = 0;
+  for(int i=0;i<n;i++){
+    sum = sum + arr[i];
+    if(sum > mid){
+      sum = arr[i];
+      student++;
+      if(student>m)
+      return false;
+    }
+  }
+  return true;
+}
+
+int answer(int arr[],int n,int m){
+  int s=0,e,mid;
+  int sum = 0,ans = 0;
+  for(int i=0;i<n;i++){
+    s = max(s,arr[i]);
+    sum = sum + arr[i];
+  }
+  e = sum;
+  while(s<=e){
+   mid = (s+e)/2;
+   if(isValid(arr,n,m,mid)){
+     ans = mid;
+     e = mid -1;
+   }
+   else{
+     s = mid+1;
+   }
+  }
+  return ans;
+}
+
+int main() {
+  int t;
+  cin>>t;
+  for(int i=0;i<t;i++){
+    int n,m;
+    cin>>n>>m;
+    int arr[n];
+    for(int j=0;j<n;j++)
+    cin>>arr[j];
+    int ans = answer(arr,n,m);
+    cout<<ans<<endl;;
+  }
+  return 0;
+}

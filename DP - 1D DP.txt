@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int arr[1000];
+
+int res(int n){             //Memoisation
+    if(n==1)
+    return 0;
+    if(arr[n] != -1)
+    return arr[n];
+    int p1=100,p2=100,p3=100;
+    if(n%3 == 0)
+    p1 = 1 + res(n/3);
+    if(n%2 == 0)
+    p2 = 1 + res(n/2);
+    p3 = 1 + res(n-1);
+    arr[n] = min(p1,min(p2,p3));
+    return arr[n];
+}
+
+int res2(int n){            // Bottom up 
+    arr[0] = 0;
+    arr[1] = 0;
+    arr[2] = 1;
+    arr[3] = 1;
+    for(int i=4;i<=n;i++){
+        int q1=INT_MAX,q2=INT_MAX,q3=INT_MAX;
+        if(i%3 == 0)
+        q1 = 1 + arr[i/3];
+        if(i%2 == 0)
+        q2 = 1 + arr[i/2];
+        q3 = 1 + arr[i-1];
+        arr[i] = min(q1,min(q2,q3));
+    }
+    return arr[n];
+}
+
+int main() {
+    int n;
+    cin>>n;
+    for(int i=0;i<1000;i++)
+    arr[i] = -1;
+    cout<<res2(n);
+    return 0;
+}

@@ -1,0 +1,76 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+    char data;
+    bool terminal;
+    int count;
+    unordered_map<char,node*>children;
+    node(char ch){
+        data = ch;
+        terminal = false;
+        count = 0;
+    }
+};
+
+class trie{
+    public:
+    node* root;
+    trie(){
+        root = new node('\0');
+    }
+    void addWord(string s){
+        node* temp = root;
+        for(int i=0;i<s.size();i++){
+            if(temp->children.count(s[i])){
+                temp = temp->children[s[i]];
+            }
+            else{
+                node* child = new node(s[i]);
+                temp->children[s[i]] = child;
+                temp = temp->children[s[i]];
+            }
+            temp->count++;
+        }
+        temp->terminal = true;
+    }
+    bool search(string s){
+        node* temp = root;
+        for(int i=0;i<s.size();i++){
+            if(temp->children.count(s[i]))
+            temp = temp->children[s[i]];
+            else
+            return false;
+        }
+        return temp->terminal;
+    }
+    string uniquePrefix(string s){
+        node* temp = root;
+        string str = "";
+        for(int i=0;i<s.size();i++){
+            if(temp->children.count(s[i])){
+                temp = temp->children[s[i]];
+                str.push_back(temp->data);
+                if(temp->count == 1)
+                return str;
+            }
+        }
+        return "-1";
+    }
+};
+
+int main() {
+    trie t;
+    t.addWord("zebra");
+    t.addWord("dog");
+    t.addWord("dove");
+    t.addWord("duck");
+    t.addWord("zebras");
+    cout<<t.uniquePrefix("zebra")<<endl;
+    cout<<t.uniquePrefix("dog")<<endl;
+    cout<<t.uniquePrefix("dove")<<endl;
+    cout<<t.uniquePrefix("duck")<<endl;
+    cout<<t.uniquePrefix("zebras")<<endl;
+    return 0;
+}

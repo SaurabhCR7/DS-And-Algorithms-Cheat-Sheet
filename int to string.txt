@@ -1,3 +1,0 @@
-ostringstream str1; 
-str1 << i; 
-string geek = str1.str(); 
