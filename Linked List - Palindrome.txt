@@ -1,0 +1,26 @@
+int Palindrome(ListNode* A) {
+    int size = 0;
+    ListNode* temp = A;
+    while(temp){
+        size++;
+        temp = temp->next;
+    }
+    int count = size;
+    size = size/2;
+    temp = A;
+    ListNode* temp1 = A;
+    stack<ListNode*>s;
+    while(size--){
+        s.push(temp);
+        temp = temp->next;
+    }
+    if(count%2 == 1)
+    temp = temp->next;
+    while(temp){
+        if(s.top()->val != temp->val)
+        return 0;
+        temp = temp->next;
+        s.pop();
+    }
+    return 1;
+}

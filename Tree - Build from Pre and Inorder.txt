@@ -1,26 +1,27 @@
-int ptr; 
+int ptr;
  
 TreeNode* build(vector<int>&A,vector<int>&B,int s,int e){
     if(s>e)
     return NULL;
-    TreeNode* root = new TreeNode(B[ptr]);
+    TreeNode* root = new TreeNode(A[ptr]);
     int index = -1;
     for(int i=s;i<=e;i++){
-        if(B[ptr] == A[i]){
+        if(A[ptr] == B[i]){
             index = i;
             break;
         }
     }
-    ptr--;
-    root->right = build(A,B,index+1,e);
+    ptr++;
     root->left = build(A,B,s,index-1);
+    root->right = build(A,B,index+1,e);
     return root;
 } 
  
 TreeNode* Solution::buildTree(vector<int> &A, vector<int> &B) {
+    TreeNode* root = NULL;
     if(A.size() == 0)
-    return NULL;
-    ptr = A.size()-1;
-    TreeNode* root = build(A,B,0,A.size()-1);
+    return root;
+    ptr = 0;
+    root = build(A,B,0,A.size()-1);
     return root;
 }

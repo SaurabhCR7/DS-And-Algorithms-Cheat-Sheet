@@ -1,0 +1,22 @@
+int Solution::singleNumber(const vector<int> &A) {
+    int arr[32];
+    int x = 0;
+    for(int i=0;i<32;i++)
+    arr[i] = 0;
+    for(int i=0;i<A.size();i++){
+        int temp = A[i];
+        x = 0;
+        while(temp){
+            if(temp&1 == 1)
+            arr[x]++;
+            x++;
+            temp = temp >> 1;
+        }
+    }
+    int num = 0;
+    for(int i=0;i<32;i++){
+        if(arr[i]%3 == 1)
+        num = num + pow(2,i);
+    }
+    return num;
+}

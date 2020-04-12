@@ -1,0 +1,9 @@
+sort(arr,arr+n,compare);	// Here we are passing the compare function as a parameter
+
+bool compare(int a,int b){
+  return a<b;  // Increasing Order 	// true - No Swaping 
+  return a>b;  // Decreasing Order 	// false - Swaping
+}
+
+void bubble_sort(int arr[],int n,bool (&cmp)(int a,int b)){  	// Passing the function as parameter
+}

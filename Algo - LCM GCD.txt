@@ -1,2 +1,4 @@
+ a x b = LCM(a, b) * GCD (a, b)
+
 GCD(a,b) = GCD(b,a%b);
 GCD(a,0) = a;

@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++)
+    cin>>arr[i];
+    int pre = 0,l=-1,r=-1;
+    unordered_map<int,int>m;
+    m[pre] = -1;
+    for(int i=0;i<n;i++){
+        pre = pre + arr[i];
+        if(m.count(pre)){
+            l = m[pre]+1;
+            r = i;
+            break;
+        }
+        else{
+            m[pre] = i;
+        }
+    }
+    cout<<l<<" "<<r<<endl;
+    return 0;
+}

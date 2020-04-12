@@ -1,0 +1,35 @@
+// Find function
+
+auto it = find(arr,arr+n,key);	or int* it	// Returns the address where the key is present
+int index = it - arr;  			// Subtracting the address of the first index to get the actual index of key
+
+if(index == n)
+cout<<"Not found";
+
+// Binary Search
+
+bool found = binary_search(arr,arr+n,key);
+auto it = lower_bound(start,end,key); 		// First occurrence ( If not present , it gives the address of no. greater than key
+auto it = upper_bound(start,end,key); 		// Next greater element after the Last occurrence
+int index = it - arr;
+
+No. of occurences of key = upper_bound(s,e,key) - lower_bound(s,e,key);
+
+// Next Permutation function
+
+next_permutation(v.begin(),v.end());		// Arranges the elements in order to get the next greater lexigraphical number
+next_permutation(arr,arr+n);
+
+// Reverse function
+
+reverse(arr,arr+n);
+reverse(v.begin(),v.end());
+
+// Vector 
+
+vector<int>v;
+v.insert(v.begin()+3,100);			// Inserting 100 at index 3
+v.insert(v.begin()+3,4,100);			// Inserting 100 four times at index 3
+
+v.erase(v.begin()+3);				// Removing an element from index 3
+v.erase(v.begin()+3, v.begin()+5);		// Removing elements between index 3 to 5

@@ -1,0 +1,102 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+    char data;
+    bool terminal;
+    int count;
+    unordered_map<char,node*>children;
+    node(char ch){
+        data = ch;
+        terminal = false;
+        count = 0;
+    }
+};
+
+class trie{
+    public:
+    node* root;
+    trie(){
+        root = new node('\0');
+    }
+    void addWord(string s){
+        node* temp = root;
+        for(int i=0;i<s.size();i++){
+            if(temp->children.count(s[i])){
+                temp = temp->children[s[i]];
+            }
+            else{
+                node* child = new node(s[i]);
+                temp->children[s[i]] = child;
+                temp = temp->children[s[i]];
+            }
+            temp->count++;
+        }
+        temp->terminal = true;
+    }
+    bool search(string s){
+        node* temp = root;
+        for(int i=0;i<s.size();i++){
+            if(temp->children.count(s[i]))
+            temp = temp->children[s[i]];
+            else
+            return false;
+        }
+        return temp->terminal;
+    }
+    string xorAns(string s){
+        node* temp = root;
+        string str = "";
+        for(int i=0;i<s.size();i++){
+            char ch = '0';
+            if(s[i] == '0')
+            ch = '1';
+            if(temp->children.count(ch)){
+                str.push_back(ch);
+                temp = temp->children[ch];
+            }
+            else{
+                str.push_back(s[i]);
+                temp = temp->children[s[i]];
+            }
+        }
+        return str;
+    }
+};
+
+int main() {
+    trie t;
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++)
+    cin>>arr[i];
+    int ans = 0;
+    bool first = false;
+    for(int i=0;i<n;i++){
+        int num = arr[i];
+        int count = 32;
+        string str = "";
+        while(count>=0){
+            str.push_back((num%2)+'0');
+            num = num/2;
+            count--;
+        }
+        reverse(str.begin(),str.end());
+        if(first){
+            string s1 = t.xorAns(str);
+            int x = 0,count1 = 0;
+            for(int j=s1.size()-1;j>=0;j--){
+                x = x + pow(2,count1)*(s1[j]-'0');
+                count1++;
+            }
+            ans = max(x^arr[i],ans);
+        }
+        t.addWord(str);
+        if(!first)
+        first = true;
+    }
+    cout<<ans;
+    return 0;
+}

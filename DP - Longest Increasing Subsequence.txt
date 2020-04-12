@@ -1,0 +1,16 @@
+// Strictly Increasing
+
+int Solution::lis(const vector<int> &A) {
+    int dp[A.size()];
+    for(int i=0;i<A.size();i++)
+    dp[i] = 1;
+    int best = 1;
+    for(int i=1;i<A.size();i++){
+        for(int j=0;j<i;j++){
+            if(A[j] < A[i])
+            dp[i] = max(1+dp[j],dp[i]);
+        }
+        best = max(best,dp[i]);
+    }
+    return best;
+}

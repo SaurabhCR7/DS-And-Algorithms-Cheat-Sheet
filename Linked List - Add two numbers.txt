@@ -1,0 +1,39 @@
+ListNode* Solution::addTwoNumbers(ListNode* A, ListNode* B) {
+    ListNode* num1 = A;
+    ListNode* num2 = B;
+    int carry = 0;
+    ListNode* prev;
+    while(num1 && num2){
+        num1->val = num1->val + num2->val + carry;
+        if(num1->val > 9){
+            carry = 1;
+            num1->val = num1->val - 10;
+        }
+        else
+        carry = 0;
+        prev = num1;
+        num1 = num1->next;
+        num2 = num2->next;
+    }
+    if(num2){
+        prev->next = num2;
+        num1 = prev->next;
+    }
+    while(num1){
+        num1->val = num1->val + carry;
+        if(num1->val > 9){
+            carry = 1;
+            num1->val = num1->val - 10;
+        }
+        else
+        carry = 0;
+        if(num1->next)
+        num1 = num1->next;
+        else
+        break;
+    }
+    if(carry == 1){
+        num1->next = new ListNode(1);
+    }
+    return A;
+}

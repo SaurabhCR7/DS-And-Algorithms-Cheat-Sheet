@@ -1,0 +1,27 @@
+// O(n^2) Approach
+
+int diameterOfBinaryTree(TreeNode* root) {
+  if(!root)
+  return 0;
+  return max(height(root->left) + height(root->right),max(diameterOfBinaryTree(root->left),diameterOfBinaryTree(root->right)));
+}
+
+// O(n) Approach
+
+Class Pair{
+ public:
+ int height;
+ int diameter;
+}
+
+Pair fastDiameter(TreeNode* root){
+ Pair p;
+ if(!root){
+  p.diameter = p.height = 0;
+  return p; 
+ }
+Pair leftAns = fastDiameter(root->left);
+Pair rightAns = fastDiameter(root->right);
+p.height = max(leftAns.height,rightAns.height)+1;
+p.diameter = max(leftAns.height + rightAns.height, max(leftAns.diameter,rightAns.diameter));
+return p;
