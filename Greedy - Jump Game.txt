@@ -1,0 +1,15 @@
+    bool canJump(vector<int>& nums) {
+        if(nums.size() == 1)
+        return true;
+        int left = nums.size()-1;
+        int i=nums.size()-2;
+        while(i >= 0){
+            if(nums[i] + i >= left){
+                left = i;
+                if(left == 0)
+                return true;
+            }
+            i--;
+        }
+        return false;
+    }

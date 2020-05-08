@@ -1,0 +1,22 @@
+Class Pair{
+    public:
+    int height;
+    bool isBalanced;
+};
+
+Pair checkBalanced(node* root){
+    Pair p;
+    if(!root){
+        p.height = 0;
+        p.isBalanced = true;
+        return p;
+    }
+    Pair left = checkBalanced(root->left);
+    Pair right = checkBalanced(root->right);
+    p.height = max(left.height,right.height)+1;
+    if(abs(left.height - right.height) <= 1 && left.isBalanced && right.isBalanced)
+    p.isBalanced = true;
+    else
+    p.isBalanced = false;
+    return p;
+}

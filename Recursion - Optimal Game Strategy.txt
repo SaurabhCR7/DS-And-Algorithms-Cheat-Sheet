@@ -1,0 +1,8 @@
+int ans(int arr[],int s,int e){
+	if(s>e)
+	return 0;
+	int res1,res2;
+	res1 = arr[s] + min(ans(arr,s+2,e),ans(arr,s+1,e-1));
+	res2 = arr[e] + min(ans(arr,s+1,e-1),ans(arr,s,e-2));
+	return max(res1,res2);
+}

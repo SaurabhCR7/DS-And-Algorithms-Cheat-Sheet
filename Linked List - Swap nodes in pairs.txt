@@ -1,0 +1,28 @@
+ListNode* Solution::swapPairs(ListNode* A) {
+    if(!A->next)
+    return A;
+    ListNode* temp = A;
+    A = A->next;
+    ListNode* secNext = A->next;
+    A->next = temp;
+    if(!secNext){
+        temp->next = NULL;
+        return A;
+    }
+    ListNode* temp1;
+    while(secNext){
+        if(!secNext->next){
+            temp->next = secNext;
+            temp->next->next = NULL;
+            return A;
+        }
+        temp->next = secNext->next;
+        temp1 = secNext->next->next;
+        secNext->next->next = secNext;
+        temp = secNext;
+        secNext = temp1;
+    }
+    if(temp)
+    temp->next = NULL;
+    return A;
+}

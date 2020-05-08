@@ -1,0 +1,40 @@
+#include<iostream>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+	for(int i=0;i<t;i++)
+	{
+	    int n;
+	    cin>>n;
+	    int arr[n];
+	    for(int j=0;j<n;j++)
+	    cin>>arr[j];
+	    int dp[n];
+	    for(int j=0;j<n;j++)
+	    dp[j] = -1;
+	    dp[n-1] = 0;
+	    if(n == 1)
+	    cout<<"0"<<endl;
+	    else{
+	        for(int j=n-2;j>=0;j--){
+	            if(j+arr[j] >= n-1)
+	            dp[j] = 1;
+	            else{
+	                for(int k=j+1;k<=j+arr[j];k++){
+	                    if(dp[k] != -1){
+	                    if(dp[j] == -1)
+	                    dp[j] = 1 + dp[k];
+	                    else
+	                    dp[j] = min(dp[j],1 + dp[k]);    
+	                }
+	                }
+	            }
+	        }   
+	    }
+	    cout<<dp[0]<<endl;
+	}
+	
+	return 0;
+}

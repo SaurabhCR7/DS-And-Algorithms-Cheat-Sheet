@@ -1,0 +1,14 @@
+int modul = 1000000007;
+int ans(int n,int m){
+  long long int count[n+1];
+  count[0] = 0;
+  for(int i=1;i<n+1;i++){
+    if(i < m)
+    count[i] = 1;
+    else if(i == m)
+    count[i] = 2;
+    else
+    count[i] = ((count[i-m]%modul) + (count[i-1]%modul))%modul;
+  }
+  return count[n];
+}

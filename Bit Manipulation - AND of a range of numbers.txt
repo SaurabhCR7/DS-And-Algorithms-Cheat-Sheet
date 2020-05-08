@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int rangeBitwiseAnd(int m, int n) {
+        int diff = n-m;
+        int num = 0,gap=0,i=0;
+        while(m!=0 && n!=0){
+            gap = pow(2,i);
+            if(gap-1 >= diff){
+                int x = m%2;
+                int y = n%2;
+                if(x == 1 && y == 1)
+                num = num + pow(2,i);
+            }
+            m = m/2;
+            n = n/2;
+            i++;
+        }
+        return num;
+    }
+};
