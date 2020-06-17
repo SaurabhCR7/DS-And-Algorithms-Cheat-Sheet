@@ -1,0 +1,94 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+    public:
+	int data;
+	node* left;
+	node* right;
+	node(int d){
+		data = d;
+		left = right = NULL;
+	}
+};
+
+node* build(int pre[],int ino[],int s,int e,int &index){
+	if(s > e)
+	return NULL;
+	node* root = new node(pre[index]);
+	int mid = -1;
+	for(int i=s;i<=e;i++){
+		if(ino[i] == pre[index]){
+			mid = i;
+			break;
+		}
+	}
+	index++;
+	root->left = build(pre,ino,s,mid-1,index);
+	root->right = build(pre,ino,mid+1,e,index);
+	return root;
+}
+
+void printKth(node* root,int k,vector<int>&v){
+    if(!root || k < 0)
+    return;
+    if(k == 0){
+        v.push_back(root->data);
+        return;
+    }
+    printKth(root->left,k-1,v);
+    printKth(root->right,k-1,v);
+}
+
+int kthElement(node* root,int target,int k,vector<int>&v){
+    if(!root)
+    return -1;
+    if(root->data == target){
+        printKth(root,k,v);
+        return 1;
+    }
+    int l = kthElement(root->left,target,k,v);
+    int r = kthElement(root->right,target,k,v);
+    if(l != -1){
+        if(l == k)
+        v.push_back(root->data);
+        printKth(root->right,k-l-1,v);
+        return l+1;
+    }
+    if(r != -1){
+        if(r == k)
+        v.push_back(root->data);
+        printKth(root->left,k-r-1,v);
+        return r+1;
+    }
+    return -1;
+}
+
+int main(){
+	int n;
+	cin>>n;
+	int pre[n],ino[n];
+	for(int i=0;i<n;i++)
+	cin>>pre[i];
+	for(int j=0;j<n;j++)
+	cin>>ino[j];
+	node* root = NULL;
+	int index = 0;
+	root = build(pre,ino,0,n-1,index);
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++){
+        int target,k;
+        cin>>target>>k;
+        vector<int>v;
+        kthElement(root,target,k,v);
+        sort(v.begin(),v.end());
+        for(auto j:v){
+            cout<<j<<" ";
+        }
+		if(v.size() == 0)
+		cout<<"0";
+        cout<<endl;
+    }
+	return 0;
+}

@@ -1,0 +1,8 @@
+long long int num(int n){
+	long long int count = 1,ans=1;
+	while(n--){
+		ans += count;
+		count = ans-count;
+	}
+	return ans;
+}

@@ -1,1 +1,17 @@
-__builtin_popcount(num);
+// Method 1 : Check every bit
+
+while(n>0){
+    ans += n&1;
+    n = n>>1;
+}
+
+// Method 2 : Only remove set bits
+
+while(n>0){
+    n = n&(n-1);
+    ans++;
+}
+
+// Method 3 : Built in function
+
+ans = __builtin_popcount(n);

@@ -1,0 +1,10 @@
+int check(int arr[],int s,int e,vector<vector<int>>&dp){
+	if(s > e)
+	return 0;
+	if(dp[s][e] != -1)
+	return dp[s][e];
+	int res1 = arr[s] + min(check(arr,s+2,e,dp),check(arr,s+1,e-1,dp));
+	int res2 = arr[e] + min(check(arr,s,e-2,dp),check(arr,s+1,e-1,dp));
+	dp[s][e] = max(res1,res2);
+	return max(res1,res2);
+}

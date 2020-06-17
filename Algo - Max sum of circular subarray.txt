@@ -1,10 +1,44 @@
-int maxCircularSum(int a[],int n){
-  int max_kadane = kadane(a,n);
-  int max_wrap = 0;
-  for(int i=0;i<n;i++){
-    max_wrap = max_wrap+a[i];
-    a[i] = -a[i];
-  }
-  max_wrap = max_wrap + kadane(a,n);
-  return max(max_wrap,max_kadane);
-}
+class Solution {
+public:
+    int kadane(vector<int>A){
+        int currMax = 0,maxSum = 0;
+        bool neg = true;
+        for(int i=0;i<A.size();i++){
+            if(A[i] >= 0)
+            neg = false;
+            currMax += A[i];
+            if(currMax < 0)
+            currMax = 0;
+            maxSum = max(maxSum,currMax);
+        }
+        if(neg){
+            int num = INT_MIN;
+            for(int i=0;i<A.size();i++)
+            num = max(num,A[i]);
+            return num;
+        }
+        return maxSum;
+    }
+    int maxSubarraySumCircular(vector<int>& A) {
+        int n = A.size();
+        int maxKadane = kadane(A);
+        int circularSum = 0;
+        bool neg = true;
+        for(int i=0;i<n;i++){
+            if(A[i] >= 0)
+            neg = false;
+        }
+        if(neg){
+            int num = INT_MIN;
+            for(int i=0;i<A.size();i++)
+            num = max(num,A[i]);
+            return num;
+        }
+        for(int i=0;i<n;i++){
+            circularSum += A[i];
+            A[i] = -A[i];
+        }
+        circularSum = circularSum + kadane(A);
+        return max(circularSum,maxKadane);
+    }
+};

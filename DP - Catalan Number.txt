@@ -3,6 +3,8 @@ using namespace std;
 
 int dp[1000] = {0};
 
+// Summation i = 0 to N for f(i-1)*1*f(N-i)
+
 int catalanUsingRecursion(int n){
     if(n == 0)
     return 1;

@@ -1,16 +1,28 @@
-// Strictly Increasing
-
-int Solution::lis(const vector<int> &A) {
-    int dp[A.size()];
-    for(int i=0;i<A.size();i++)
-    dp[i] = 1;
-    int best = 1;
-    for(int i=1;i<A.size();i++){
-        for(int j=0;j<i;j++){
-            if(A[j] < A[i])
-            dp[i] = max(1+dp[j],dp[i]);
-        }
-        best = max(best,dp[i]);
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n;
+    cin>>n;
+    int arr[n];
+    int dp[n+1];
+    for(int i=0;i<n;i++)
+    cin>>arr[i];
+    dp[0] = INT_MIN;
+    for(int i=1;i<=n;i++)
+    dp[i] = INT_MAX;
+    for(int i=0;i<n;i++){
+        int index = upper_bound(dp,dp+n+1,arr[i]) - dp;
+        if(dp[index-1] < arr[i] and arr[i] < dp[index])
+        dp[index] = arr[i];
     }
-    return best;
+    int count = 0;
+    for(int i=1;i<=n;i++){
+        if(dp[i] != INT_MAX){
+            cout<<dp[i]<<" ";
+            count++;
+        }
+    }
+    cout<<endl;
+    cout<<count;
+    return 0;
 }

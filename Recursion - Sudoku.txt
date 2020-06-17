@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isValid(vector<vector<int>>v,int i,int j,int k){
+	int n = v.size();
+	for(int x=0;x<v.size();x++){
+		if(v[x][j] == k)
+		return false;
+	}
+	for(int x=0;x<v[0].size();x++){
+		if(v[i][x] == k)
+		return false;
+	}
+	int s = (i/sqrt(n));
+	int e = (j/sqrt(n));
+	s = s*sqrt(n);
+	e = e*sqrt(n);
+	//cout<<s<<" : "<<e<<endl;
+	for(int x=s;x<s+sqrt(n);x++){
+		for(int y=e;y<e+sqrt(n);y++){
+			if(v[x][y] == k)
+			return false;
+		}
+	}
+	return true;
+}
+
+bool ans(vector<vector<int>>&v,int i,int j){
+	if(i == v.size())
+	return true;
+	if(j == v[0].size())
+	return ans(v,i+1,0);
+	if(v[i][j] != 0)
+	return ans(v,i,j+1);
+	bool res = false;
+	for(int k=1;k<=9;k++){
+		if(isValid(v,i,j,k)){
+			v[i][j] = k;
+			res = ans(v,i,j+1);
+			if(res)
+			return true;
+			v[i][j] = 0;
+		}
+	}
+	return false;
+}
+
+int main() {
+	int n;
+	cin>>n;
+	vector<vector<int>>v(n,vector<int>(n,0));
+	for(int i=0;i<v.size();i++){
+		for(int j=0;j<v[0].size();j++)
+		cin>>v[i][j];
+	}
+	//cout<<isValid(v,1,1,7);
+	bool res = ans(v,0,0);
+	for(int i=0;i<v.size();i++){
+		for(int j=0;j<v[0].size();j++)
+		cout<<v[i][j]<<" ";
+		cout<<endl;
+	}
+	return 0;
+}

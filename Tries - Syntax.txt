@@ -1,0 +1,60 @@
+class node{
+  public:
+    char data;
+    bool terminal;
+    unordered_map<char,node*>m;
+    node(char ch){
+        data = ch;
+        terminal = false;
+    }
+};
+
+class Trie {
+public:
+    node* root;
+    /** Initialize your data structure here. */
+    Trie() {
+        root = new node('\0');
+    }
+    
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+        node* temp = root;
+        for(int i=0;i<word.size();i++){
+            if(temp->m.find(word[i]) != temp->m.end()){
+                temp = temp->m[word[i]];
+            }
+            else{
+                node* child = new node(word[i]);
+                temp->m[word[i]] = child;
+                temp = temp->m[word[i]];
+            }
+        }
+        temp->terminal = true;
+    }
+    
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+        node* temp = root;
+        for(int i=0;i<word.size();i++){
+            if(temp->m.find(word[i]) != temp->m.end()){
+                temp = temp->m[word[i]];
+            }
+            else 
+            return false;
+        }
+        return temp->terminal;
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+        node* temp = root;
+        for(int i=0;i<prefix.size();i++){
+            if(temp->m.find(prefix[i]) != temp->m.end())
+            temp = temp->m[prefix[i]];
+            else
+            return false;
+        }
+        return true;
+    }
+};

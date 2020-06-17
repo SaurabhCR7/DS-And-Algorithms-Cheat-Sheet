@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+	string s1,s2;
+	cin>>s1>>s2;
+	int dp[s1.size()+1][s2.size()+1];
+	for(int i=0;i<=s1.size();i++)
+	dp[i][0] = 0;
+	for(int i=0;i<=s2.size();i++)
+	dp[0][i] = 0;
+	string str;
+	for(int i=1;i<=s1.size();i++){
+		for(int j=1;j<=s2.size();j++){
+			if(s1[i-1] == s2[j-1])
+			dp[i][j] = dp[i-1][j-1] + 1;
+			else
+			dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+		}
+	}
+	int i=s1.size(),j=s2.size();
+	while(i > 0 and j > 0){
+		if(dp[i-1][j] == dp[i][j-1]){
+            if(dp[i-1][j] == dp[i][j]){
+                i--;
+            }
+            else{
+                str.push_back(s1[i-1]);
+                i--;
+                j--;
+            }
+		}
+		else{
+			if(dp[i-1][j] > dp[i][j-1]){
+				i--;
+			}
+			else{
+				j--;
+			}
+		}
+	}
+	reverse(str.begin(),str.end());
+	cout<<str;
+	return 0;
+}

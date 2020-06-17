@@ -1,0 +1,29 @@
+class Solution {
+public:
+    
+    void cal(vector<int>nums,int i,vector<int>temp,vector<int>&ans,vector<int>&subset){
+        if(temp.size() >= ans.size())
+        ans = temp;
+        for(int index = i;index<nums.size();index++){
+            if(temp.empty() or nums[index]%temp[temp.size()-1] == 0){
+                if(subset[index] == -1 or subset[index] < temp.size()){
+                    subset[index] = temp.size();
+                    temp.push_back(nums[index]);
+                    cal(nums,index+1,temp,ans,subset);
+                    temp.pop_back();
+                }
+            }   
+        }
+    }
+    
+    vector<int> largestDivisibleSubset(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        vector<int>ans;
+        vector<int>temp;
+        vector<int>subset(nums.size());
+        for(int i=0;i<nums.size();i++)
+        subset[i] = -1;
+        cal(nums,0,temp,ans,subset);
+        return ans;
+    }
+};

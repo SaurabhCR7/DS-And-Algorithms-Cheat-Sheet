@@ -1,0 +1,103 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+	public:
+	int data;
+	node* next;
+	node(int d){
+		data = d;
+		next = NULL;
+	}
+};
+
+bool isCycle(node* head){
+	if(!head or !head->next)
+	return false;
+	node* fast = head;
+	node* slow = head;
+	fast = fast->next->next;
+	slow = slow->next;
+	while(fast and fast->next and fast->data != slow->data){
+		if(!fast or !slow)
+		return false;
+		fast = fast->next->next;
+		slow = slow->next;
+	}
+	if(!fast or !slow)
+	return false;
+	if(fast->data == slow->data)
+	return true;
+	return false;
+}
+
+node* insert(node* head,int d){
+	if(!head){
+		head = new node(d);
+		return head;
+	}
+	node* temp = head;
+	bool found = false;
+	while(temp->next){
+		if(temp->data == d)
+		found = true;
+		temp = temp->next;
+	}
+	if(!found){
+		temp->next = new node(d);
+		return head;
+	}
+	else{
+		node* temp1 = head;
+		while(temp1){
+			if(temp1->data == d){
+				temp->next = temp1;
+				return head;
+			}
+			temp1 = temp1->next;
+		}
+	}
+	return head;
+}
+
+void print(node* head){
+	while(head){
+		cout<<head->data<<" ";
+		head = head->next;
+	}
+}
+
+int main() {
+	node* head = NULL;
+	while(true){
+		int d;
+		cin>>d;
+		if(d == -1)
+		break;
+		if(isCycle(head))
+		break;
+		head = insert(head,d);
+	}
+	if(isCycle(head)){
+	node* fast = head;
+	node* slow = head;
+	fast = fast->next->next;
+	slow = slow->next;
+	node* prev = fast;
+	while(fast != slow){
+		prev = fast;
+		fast = fast->next->next;
+		slow = slow->next;
+	}
+	slow = head;
+	prev = prev->next;
+	while(fast != slow){
+		prev = fast;
+		fast = fast->next;
+		slow = slow->next;
+	}
+	prev->next = NULL;
+	}
+	print(head);
+	return 0;
+}

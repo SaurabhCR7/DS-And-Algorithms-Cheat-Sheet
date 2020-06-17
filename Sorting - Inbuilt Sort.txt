@@ -5,5 +5,11 @@ bool compare(int a,int b){
   return a>b;  // Decreasing Order 	// false - Swaping
 }
 
+// Easy custom comparator 
+
+sort(costs.begin(),costs.end(),[](int a,int b){
+   return a < b; 
+});
+
 void bubble_sort(int arr[],int n,bool (&cmp)(int a,int b)){  	// Passing the function as parameter
 }

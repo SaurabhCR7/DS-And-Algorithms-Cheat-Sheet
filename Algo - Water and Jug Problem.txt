@@ -1,0 +1,8 @@
+int gcd(int a,int b){
+  if(b == 0)
+  return a;
+  return gcd(b,a%b);
+}
+bool canMeasureWater(int x, int y, int z) {
+  return z == 0 or (z <= (x+y) and (z % gcd(x,y)) == 0);
+}

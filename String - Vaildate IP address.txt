@@ -1,0 +1,68 @@
+class Solution {
+public:
+    string validIPAddress(string IP) {
+        bool ip4 = false;
+        for(int i=0;i<IP.size();i++){
+            if(IP[i] == '.'){
+                ip4 = true;
+                break;
+            }
+        }
+        if(ip4){
+            vector<string>v;
+            string temp;
+            for(int i=0;i<IP.size();i++){
+                if(IP[i] == '.'){
+                    v.push_back(temp);
+                    temp = "";
+                }
+                else{
+                    temp.push_back(IP[i]);
+                }
+            }
+            v.push_back(temp);
+            if(v.size() != 4)
+            return "Neither";
+            for(int i=0;i<v.size();i++){
+                if(v[i].size() >3 or v[i].size() < 1)
+                return "Neither";
+                if(v[i].size() > 1 and v[i][0] == '0')
+                return "Neither";
+                int num = 0;
+                for(int j=0;j<v[i].size();j++){
+                    if(v[i][j] < '0' or v[i][j] > '9')
+                    return "Neither";
+                    num = (num*10) + (v[i][j] - '0');
+                }
+                if(num < 0 or num > 255)
+                return "Neither";
+            }
+            return "IPv4";
+        }
+        else{
+            vector<string>v;
+            string temp;
+            for(int i=0;i<IP.size();i++){
+                if(IP[i] == ':'){
+                    v.push_back(temp);
+                    temp = "";
+                }
+                else{
+                    temp.push_back(IP[i]);
+                }
+            }
+            v.push_back(temp);
+            if(v.size() != 8)
+            return "Neither";
+            for(int i=0;i<v.size();i++){
+                if(v[i].size() == 0 or v[i].size() > 4)
+                return "Neither";
+                for(int j=0;j<v[i].size();j++){
+                    if(!(v[i][j] >= '0' and v[i][j] <= '9') and !(v[i][j] >= 'a' and v[i][j] <= 'f') and !(v[i][j]>= 'A' and v[i][j] <= 'F'))
+                    return "Neither";
+                }
+            }
+        }
+        return "IPv6";
+    }
+};

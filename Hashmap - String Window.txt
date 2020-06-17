@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string minWindow(string str,string pat){
+    int len1 = str.size();
+    int len2 = pat.size();
+    if(len1 < len2)
+    return "No String";
+    unordered_map<char,int>m1;
+    unordered_map<char,int>m2;
+    for(int i=0;i<len2;i++){
+        if(m2.find(pat[i]) == m2.end())
+        m2[pat[i]] = 1;
+        else
+        m2[pat[i]]++;
+    }
+    int s=0,start_index=-1,minLen = INT_MAX;
+    int count = 0;
+    for(int i=0;i<len1;i++){
+        if(m1.find(str[i]) == m1.end())
+        m1[str[i]] = 1;
+        else
+        m1[str[i]]++;
+        if(m2.find(str[i]) != m2.end() and m1[str[i]] <= m2[str[i]])
+        count++;
+        if(count == len2){
+            while(m2.find(str[s]) == m2.end() or m1[str[s]] > m2[str[s]]){
+                if(m2.find(str[s]) != m2.end()){
+                    m1[str[s]]--;
+                }
+                s++;
+            }
+            if(minLen > i-s+1){
+                minLen = i-s+1;
+                start_index = s;
+            }
+        }
+    }
+    if(start_index == -1)
+    return "No String";
+    return str.substr(start_index,minLen);
+}
+int main() {
+    string str,pat;
+    getline(cin,str);
+    getline(cin,pat);
+    cout<<minWindow(str,pat)<<endl;
+    return 0;
+}

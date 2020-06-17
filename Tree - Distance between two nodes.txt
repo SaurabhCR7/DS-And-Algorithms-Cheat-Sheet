@@ -1,0 +1,36 @@
+Node* lca(Node* root,int p,int q){
+    if(!root)
+    return NULL;
+    if(root->data == p || root->data == q)
+    return root;
+    Node* leftAns = lca(root->left,p,q);
+    Node* rightAns = lca(root->right,p,q);
+    if(leftAns and rightAns)
+    return root;
+    if(leftAns)
+    return leftAns;
+    return rightAns;
+}
+
+int distance(Node* root,int key){
+    if(!root)
+    return -1;
+    if(root->data == key)
+    return 0;
+    int leftAns = distance(root->left,key);
+    int rightAns = distance(root->right,key);
+    if(leftAns != -1)
+    return leftAns+1;
+    if(rightAns != -1)
+    return rightAns+1;
+    return -1;
+}
+
+int findDist(Node* root, int a, int b) {
+    if(!root)
+    return 0;
+    Node* parent = lca(root,a,b);
+    int dist1 = distance(parent,a);
+    int dist2 = distance(parent,b);
+    return dist1+dist2;
+}

@@ -1,0 +1,12 @@
+int check(int w[],int v[],int s,int n,int weight,int i,vector<vector<int>>&dp){
+	if(i == n)
+	return 0;
+	if(dp[i][weight] != -1)
+	return dp[i][weight];
+	int ans1 = 0;
+	if(weight + w[i] <= s)
+	ans1 = check(w,v,s,n,weight+w[i],i+1,dp)+v[i];
+	int ans2 = check(w,v,s,n,weight,i+1,dp);
+	dp[i][weight] = max(ans1,ans2);
+	return max(ans1,ans2);
+}
