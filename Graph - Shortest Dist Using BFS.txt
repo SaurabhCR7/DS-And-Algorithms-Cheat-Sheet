@@ -29,7 +29,7 @@ class Graph{
             for(auto neighbour:adjList[node]){
                 if(dist[neighbour] == -1){
                     q.push(neighbour);
-                    dist[neighbour] = dist[node] + 6;
+                    dist[neighbour] = dist[node] + 1;
                 }
             }
         }

@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    double x,n;
+    cin>>x>>n;
+    double epsilon = 0.00000001;
+    double s=0,e=x,mid,ans=0;
+    if(x >= 0 and x <= 1){
+        s = x;
+        e = 1;
+    }
+    mid = (s+e)/2;
+    while(abs(pow(mid,n)-x) >= epsilon){
+        mid = (s+e)/2;
+        if(pow(mid,n) <= x)
+        s = mid;
+        else
+        e = mid;
+    }
+    cout<<mid;
+    return 0;
+}

@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    string s,pat;
+    cin>>s;
+    cin>>pat;
+    int reset[pat.size()];
+    reset[0] = -1;
+    int j=-1,i=0;
+    while(i < pat.size()){
+        while(j >= 0 and pat[i] != pat[j])
+        j = reset[j];
+        i++;
+        j++;
+        reset[i] = j;
+    }
+    i=0,j=0;
+    while(i < s.size()){
+        while(j >= 0 and s[i] != pat[j])
+        j = reset[j];
+        i++,j++;
+        if(j == pat.size()){
+            cout<<"Patter found at "<<i-j<<endl;
+            j = reset[j];
+        }
+    }
+    return 0;
+}

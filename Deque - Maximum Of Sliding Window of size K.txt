@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+	for(int i=0;i<t;i++)
+	{
+	    int n,k;
+	    cin>>n>>k;
+	    int arr[n];
+	    for(int j=0;j<n;j++)
+	    cin>>arr[j];
+	    deque<int>q(k);
+	    for(int j=0;j<k;j++){
+	        while(!q.empty() and arr[q.back()] <= arr[j])
+	        q.pop_back();
+	        q.push_back(j);
+	    }
+	    for(int j=k;j<n;j++){
+	        cout<<arr[q.front()]<<" ";
+	        while(!q.empty() and q.front()+k <= j)
+	        q.pop_front();
+            while(!q.empty() and arr[q.back()] <= arr[j])
+	        q.pop_back();
+	        q.push_back(j);
+	    }
+	    cout<<arr[q.front()]<<endl;
+	}
+	
+	return 0;
+}

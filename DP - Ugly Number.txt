@@ -1,0 +1,27 @@
+// Numbers divisible by 2,3,5 only
+
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector<int>ans;
+        ans.push_back(1);
+        int i=0,j=0,k=0;
+        while(ans.size() <= n){
+            int temp1 = ans[i]*2;
+            int temp2 = ans[j]*3;
+            int temp3 = ans[k]*5;
+            int minNum = min(temp1,min(temp2,temp3));
+            if(ans[ans.size()-1] != minNum)
+            ans.push_back(minNum);
+            if(temp1 == minNum)
+            i++;
+            else if(temp2 == minNum)
+            j++;
+            else
+            k++;
+        }
+        return ans[n-1];
+    }
+};
+
+

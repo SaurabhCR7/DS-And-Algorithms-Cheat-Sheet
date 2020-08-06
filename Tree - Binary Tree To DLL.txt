@@ -1,0 +1,24 @@
+Node * bToDLL(Node *root)
+{
+    if(!root)
+    return NULL;
+    Node* temp;
+    if(root->left){
+        temp = root->left;
+        while(temp->right)
+        temp = temp->right;
+    }
+    Node* leftNode = bToDLL(root->left);
+    Node* rightNode = bToDLL(root->right);
+    if(leftNode){
+        temp->right = root;
+        root->left = temp;
+    }
+    if(rightNode){
+        root->right = rightNode;
+        rightNode->left = root;
+    }
+    if(leftNode)
+    return leftNode;
+    return root;
+}

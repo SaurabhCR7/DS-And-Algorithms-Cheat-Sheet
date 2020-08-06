@@ -1,0 +1,3 @@
+// Total number of ways N people can go to party is
+
+DP[n] = DP[n-1] + (n-1)C(1) * DP[n-2]

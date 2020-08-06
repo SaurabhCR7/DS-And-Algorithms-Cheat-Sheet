@@ -1,28 +1,26 @@
-ListNode* Solution::swapPairs(ListNode* A) {
-    if(!A->next)
-    return A;
-    ListNode* temp = A;
-    A = A->next;
-    ListNode* secNext = A->next;
-    A->next = temp;
-    if(!secNext){
-        temp->next = NULL;
-        return A;
-    }
-    ListNode* temp1;
-    while(secNext){
-        if(!secNext->next){
-            temp->next = secNext;
-            temp->next->next = NULL;
-            return A;
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if(!head or !head->next)
+        return head;
+        ListNode* prev = head;
+        ListNode* curr = head->next;
+        ListNode* newNext = head->next->next;
+        ListNode* newHead = curr;
+        curr->next = prev;
+        while(newNext){
+            ListNode* first = newNext;
+            if(!first->next){
+                prev->next = first;
+                return newHead;
+            }
+            ListNode* second = first->next;
+            newNext = second->next;
+            second->next = first;
+            prev->next = second;
+            prev = first;
         }
-        temp->next = secNext->next;
-        temp1 = secNext->next->next;
-        secNext->next->next = secNext;
-        temp = secNext;
-        secNext = temp1;
+        prev->next = NULL;
+        return newHead;
     }
-    if(temp)
-    temp->next = NULL;
-    return A;
-}
+};

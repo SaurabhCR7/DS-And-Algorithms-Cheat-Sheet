@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++)
+    cin>>arr[i];
+    int k;
+    cin>>k;
+    int sum = 0,maxLen=0;
+    queue<int>q;
+    for(int i=0;i<n;i++){
+        if(sum+arr[i] <= k){
+            sum += arr[i];
+            q.push(arr[i]);
+        }
+        else{
+            maxLen = q.size();
+            while(sum+arr[i] > k){
+                int temp = q.front();
+                sum -= temp;
+                q.pop();
+            }
+            sum += arr[i];
+            q.push(arr[i]);
+        }
+    }
+    int len = q.size();
+    maxLen = max(maxLen,len);
+    cout<<maxLen<<endl;
+    return 0;
+}

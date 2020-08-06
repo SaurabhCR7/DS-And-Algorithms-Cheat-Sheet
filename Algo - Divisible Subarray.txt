@@ -1,32 +1,30 @@
-#include<iostream>
-using namespace std;
-#define ll long long int
+// Given an array A of integers, return the number of (contiguous, non-empty) 
+// subarrays that have a sum divisible by K.
 
-ll comb(ll n,ll r){
-    return (n*(n-1))/2;
-}
-
-int main() {
-    int t;
-    cin>>t;
-    for(int i=0;i<t;i++){
-        ll n;
-        cin>>n;
-        ll arr[n],sum=0,freq[n]={0};
-        for(ll j=0;j<n;j++){
-            cin>>arr[j];
-            sum = sum + arr[j];
-            sum=sum%n;
-            sum = (sum+n)%n;
-            freq[sum]++;
-        }
-        ll ans = 0;
-        freq[0]++;
-        for(ll j=0;j<n;j++){
-            if(freq[j]>1)
-            ans = ans + comb(freq[j],2);
-        }
-        cout<<ans<<endl;
+class Solution {
+public:
+    int comb(int n){
+        return (n*(n-1))/2;
     }
-	return 0;
-}
+    int subarraysDivByK(vector<int>& A, int K) {
+        int sum = 0;
+        int size = A.size();
+        vector<int>pre(size+1);
+        pre[0] = 0;
+        unordered_map<int,int>m;
+        m[0]++;
+        for(int i=0;i<size;i++){
+            sum += A[i];
+            sum = sum%K;
+            sum = (sum+K)%K;
+            pre[i+1] = sum%K;
+            m[pre[i+1]]++;
+        }
+        int ans = 0;
+        for(auto i:m){
+            if(i.second > 1)
+            ans += comb(i.second);
+        }
+        return ans;
+    }
+};

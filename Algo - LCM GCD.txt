@@ -1,4 +1,13 @@
- a x b = LCM(a, b) * GCD (a, b)
-
-GCD(a,b) = GCD(b,a%b);
-GCD(a,0) = a;
+int cal(int a,int b){
+    if(b == 0)
+    return a;
+    return cal(b,a%b);
+}
+int main() {
+    int a,b;
+    cin>>a>>b;
+    int gcd = cal(a,b);
+    cout<<"GCD : "<<gcd<<endl;
+    cout<<"LCM : "<<(a*b)/gcd;
+    return 0;
+}

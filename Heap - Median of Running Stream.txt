@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+	priority_queue<int,vector<int>,greater<int>>minHeap;
+	priority_queue<int>maxHeap;
+	int temp;
+	cin>>temp;
+	maxHeap.push(temp);
+	cout<<maxHeap.top()<<endl;
+	for(int i=1;i<t;i++)
+	{
+	    int x;
+	    cin>>x;
+	    if(x < maxHeap.top())
+	    maxHeap.push(x);
+	    else
+	    minHeap.push(x);
+	    if(abs(maxHeap.size()-minHeap.size()) > 1){
+	        if(maxHeap.size() > minHeap.size()){
+	            int num = maxHeap.top();
+	            maxHeap.pop();
+	            minHeap.push(num);
+	        }
+	        else{
+	            int num = minHeap.top();
+	            minHeap.pop();
+	            maxHeap.push(num);
+	        }
+	    }
+	    if(maxHeap.size() > minHeap.size())
+	    cout<<maxHeap.top()<<endl;
+	    else if(maxHeap.size() == minHeap.size())
+	    cout<<(maxHeap.top() + minHeap.top())/2<<endl;
+	    else
+	    cout<<minHeap.top()<<endl;
+	}
+	
+	return 0;
+}

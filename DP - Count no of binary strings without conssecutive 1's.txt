@@ -1,8 +1,25 @@
-long long int num(int n){
-	long long int count = 1,ans=1;
-	while(n--){
-		ans += count;
-		count = ans-count;
+// It follows Fibonacci Series : 0 2 3 5 8 13
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+ {
+	int t;
+	cin>>t;
+	int dp[101];
+	dp[0] = 0;
+	dp[1] = 2;
+	dp[2] = 3;
+	for(int i=3;i<=100;i++){
+	    dp[i] = (dp[i-1]%1000000007 + dp[i-2]%1000000007)%1000000007;
 	}
-	return ans;
+	for(int i=0;i<t;i++)
+	{
+	    int n;
+	    cin>>n;
+	    cout<<dp[n]%1000000007<<endl;
+	}
+	
+	return 0;
 }
