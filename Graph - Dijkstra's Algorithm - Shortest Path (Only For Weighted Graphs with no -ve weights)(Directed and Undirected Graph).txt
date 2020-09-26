@@ -1,0 +1,31 @@
+void distance(int src,int v){
+	unordered_map<int,int>dist;
+	for(int i=1;i<=v;i++)
+	dist[i] = INT_MAX;
+	set<pair<int,int>>st;
+	dist[src] = 0;
+	st.insert(make_pair(0,src));
+	while(!st.empty()){
+		pair<int,int>temp = *(st.begin());
+		st.erase(temp);
+		int node = temp.second;
+		int nodeDist = temp.first;
+		for(auto i:m[node]){
+			if(dist[i.first] > nodeDist+i.second){
+				pair<int,int>p = make_pair(dist[i.first],i.first);
+				if(st.find(p) != st.end())
+				st.erase(p);
+				dist[i.first] = nodeDist + i.second;
+				st.insert(make_pair(dist[i.first],i.first));
+			}
+		}
+	}
+  for(int i=1;i<=v;i++){
+    if(i != src){
+      if(dist[i] == INT_MAX)
+      cout<<"-1 ";
+      else
+      cout<<dist[i]<<" ";
+    }
+  }
+}

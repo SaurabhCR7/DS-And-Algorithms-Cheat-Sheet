@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+class myClass{
+    public:
+    int x;
+    static int count;
+    myClass(){
+        count++;
+    }
+
+    static int getCount(){
+        return count;        // Can only access static members
+    }
+};
+
+int myClass :: count = 0;
+
+int main() {
+    cout<<"Initial count : "<<myClass::count<<endl;   
+    myClass obj1;
+    cout<<"Count after one object : "<<myClass::count<<endl;  
+    cout<<myClass::getCount()<<endl; 
+    return 0;
+}

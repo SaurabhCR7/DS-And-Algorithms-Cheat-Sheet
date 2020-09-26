@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class graph{
+  public:
+  unordered_map<int,list<int>>m;
+  void addEdge(int x,int y){
+    m[x].push_back(y);
+    m[y].push_back(x);
+  }
+  int bfs(int src,int v){
+    queue<int>q;
+    unordered_map<int,int>dist;
+    for(int i=0;i<v;i++)
+    dist[i] = -1;
+    q.push(src);
+    dist[src] = 0;
+    while(!q.empty()){
+      int temp = q.front();
+      q.pop();
+      for(auto i:m[temp]){
+        if(dist[i] == -1){
+          q.push(i);
+          dist[i] = dist[temp] + 1;
+        }
+      }
+    }
+    int ans = 0;
+    for(auto i:dist){
+      ans = max(ans,i.second);
+    }
+    return ans;
+  }
+};
+
+
+int main()
+{
+  int t;
+  cin>>t;
+  for(int i=0;i<t;i++){
+    int v,e;
+    cin>>v>>e;
+    graph g;
+    for(int j=0;j<e;j++){
+      int x,y;
+      cin>>x>>y;
+      g.addEdge(x,y);
+    }
+    int ans = 0;
+    for(int j=0;j<v;j++)
+    ans = max(ans,g.bfs(j,v));
+    cout<<ans<<endl;
+  }
+  return 0;
+}

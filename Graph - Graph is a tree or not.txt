@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class graph{
+  public:
+  unordered_map<int,list<int>>m;
+  void addEdge(int x,int y){
+    m[x].push_back(y);
+    m[y].push_back(x);
+  }
+  bool dfs_helper(int src,unordered_map<int,bool>&visited,int par){
+    visited[src] = true;
+    bool ans = false;
+    for(auto i:m[src]){
+        if(!visited[i])
+        ans = dfs_helper(i,visited,src);
+        else if(i != par)
+        return true;
+    }
+    return ans;
+  }
+  bool isCycle(int v){
+    unordered_map<int,bool>visited;
+    int count = 0;
+    bool cycle = false;
+    for(int i=0;i<v;i++){
+      if(!visited[i]){
+        count++;
+        cycle = dfs_helper(i,visited,-1);
+        if(cycle)
+        return true;
+      }
+    }
+    if(count > 1)
+    return true;
+    return false;
+  }
+};
+
+int main()
+{
+  int t;
+  cin>>t;
+  for(int i=0;i<t;i++){
+    int v,e;
+    cin>>v>>e;
+    graph g;
+    int num;
+    for(int j=0;j<e;j++){
+      int x,y;
+      cin>>x>>y;
+      num = x;
+      g.addEdge(x,y);
+    }
+    if(g.isCycle(v))
+    cout<<"NO"<<endl;
+    else
+    cout<<"YES"<<endl;
+  }
+  return 0;
+}

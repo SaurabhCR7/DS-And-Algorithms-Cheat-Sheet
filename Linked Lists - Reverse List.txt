@@ -1,0 +1,11 @@
+struct Node* reverseList(struct Node *head)
+{
+    if(!head or !head->next)
+    return head;
+    
+    Node* temp = head;
+    Node* newHead = reverseList(head->next);
+    temp->next->next = head;
+    temp->next = NULL;
+    return newHead;
+}

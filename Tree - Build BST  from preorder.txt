@@ -1,3 +1,30 @@
-Inorder Traversal of a BST is in sorted order. 
-Use this property.
-Build  BST using preorder and inorder traversal.
+class Solution {
+public:
+    TreeNode* build(TreeNode* root,vector<int>&preorder,vector<int>&inorder,int &index,int s,int e){
+        if(s > e)
+        return NULL;
+        root = new TreeNode(preorder[index]);
+        int x = -1;
+        for(int i=s;i<=e;i++){
+            if(inorder[i] == preorder[index]){
+                x = i;
+                break;
+            }
+        }
+        index++;
+        root->left = build(root->left,preorder,inorder,index,s,x-1);
+        root->right = build(root->right,preorder,inorder,index,x+1,e);
+        return root;
+    }
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        if(preorder.size() <= 0)
+        return NULL;
+        vector<int>inorder;
+        inorder = preorder;
+        sort(inorder.begin(),inorder.end());
+        TreeNode* root = NULL;
+        int index = 0;
+        root = build(root,preorder,inorder,index,0,preorder.size()-1);
+        return root;
+    }
+};

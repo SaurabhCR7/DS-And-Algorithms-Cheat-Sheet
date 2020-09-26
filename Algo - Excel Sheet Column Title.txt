@@ -1,0 +1,13 @@
+class Solution {
+public:
+    string convertToTitle(int n) {
+        string s;
+        while(n){
+            int rem = (n-1)%26;
+            s.push_back('A'+rem);
+            n = (n-1)/26;
+        }
+        reverse(s.begin(),s.end());
+        return s;
+    }
+};

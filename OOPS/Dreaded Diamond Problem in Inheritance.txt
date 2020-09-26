@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+class vehicle{
+    public:
+    vehicle(){
+        cout<<"Vehicle constructor is called !"<<endl;
+    }
+    void horn(){
+        cout<<"Beep Beep !!!!"<<endl;
+    }
+};
+
+class scooter : virtual public vehicle{
+    public:
+    scooter(){
+        cout<<"Scooter constructor is called !"<<endl;
+    }
+};
+
+class car : virtual public vehicle{
+    public:
+    car(){
+        cout<<"Car constructor is called !"<<endl;
+    }
+};
+
+class rickshaw : public scooter,public car{
+    public:
+    rickshaw(){
+        cout<<"Rickshaw constructor is called !"<<endl;
+    }
+};
+
+
+int main() {
+    rickshaw obj;
+    obj.horn();
+    return 0;
+}

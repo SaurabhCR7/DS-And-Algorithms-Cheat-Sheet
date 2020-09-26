@@ -1,0 +1,27 @@
+int shortestCycle(int v){
+    int ans = INT_MAX;
+    for(int i=0;i<v;i++){
+      unordered_map<int,int>parent;
+      unordered_map<int,int>dist;
+      queue<int>q;
+      q.push(i);
+      parent[i] = i;
+      dist[i] = 0;
+      while(!q.empty()){
+        int temp = q.front();
+        q.pop();
+        for(auto j:m[temp]){
+          if(!dist[j]){
+            dist[j] = dist[temp] + 1;
+            parent[j] = temp;
+            q.push(j);
+          }
+          else if(parent[temp] != j and parent[j] != temp)
+          ans = min(ans,dist[temp]+dist[j]+1);
+        }
+      }
+    }
+    if(ans == INT_MAX)
+    return -1;
+    return ans;
+  }

@@ -1,0 +1,41 @@
+// Consumer Producer Problem :
+
+int count = 0;    // No. of items present
+int size = 10;    // Size of bufffer
+int buffer[size];
+
+int S = 1; // Semaphore
+
+void producer(){
+    int item;
+    int inPtr = 0;
+    while(true){
+	// Entry Section
+ 	wait(S); or down(S);
+	// Critical Section
+        produce_item(item);
+        while(count == size);
+        buffer[inPtr] = item;
+        inPtr = (inPtr + 1) % size;
+        count++;
+ 	// Exit Section
+	signal(S); or up(S);
+    }
+}
+
+void consumer(){
+    int item;
+    int outPtr = 0;
+    while(true){
+	// Entry Section
+ 	wait(S); or down(S);
+	// Critical Section
+        while(count == 0);
+        item = buffer[outPtr];
+        outPtr = (outPtr+1) % size;
+        count--;
+        process_item(item);
+ 	// Exit Section
+	signal(S); or up(S);
+    }
+}

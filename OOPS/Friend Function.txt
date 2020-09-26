@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+class dist{
+    private:
+    int meters;
+    public:
+    dist(){
+        meters = 0;
+    }
+    void display(){
+        cout<<"Meters value : "<<meters<<endl;
+    }
+
+    friend void addValue(dist &d);
+};
+
+void addValue(dist &d){
+    d.meters = d.meters + 5;
+}
+
+
+int main() {
+    dist obj;
+    obj.display();
+
+    addValue(obj);
+
+    obj.display();
+    return 0;
+}

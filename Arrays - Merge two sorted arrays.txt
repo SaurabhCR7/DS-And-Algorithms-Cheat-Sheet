@@ -1,0 +1,21 @@
+// O(n*m) solution
+
+class Solution{
+public:
+	void merge(int arr1[], int arr2[], int n, int m) {
+	    for(int i=0;i<n;i++){
+	        if(arr1[i] > arr2[0]){
+	            swap(arr1[i],arr2[0]);
+	            int j=0;
+	            while(j < m-1 and arr2[j] > arr2[j+1]){
+	                swap(arr2[j],arr2[j+1]);
+	                j++;
+	            }
+	        }
+	    }
+	}
+};
+
+// O((n+m)log(n+m)) solution
+// Predefined algorithm
+

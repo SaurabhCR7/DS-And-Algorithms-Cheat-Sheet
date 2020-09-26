@@ -3,22 +3,19 @@ Node * bToDLL(Node *root)
     if(!root)
     return NULL;
     Node* temp;
-    if(root->left){
-        temp = root->left;
-        while(temp->right)
-        temp = temp->right;
-    }
+    Node* head = root;
     Node* leftNode = bToDLL(root->left);
     Node* rightNode = bToDLL(root->right);
     if(leftNode){
-        temp->right = root;
-        root->left = temp;
+        head = leftNode;
+        while(leftNode->right)          // As leftNode returns the head of the left ll so we reach to the tail
+        leftNode = leftNode->right;
+        root->left = leftNode;
+        leftNode->right = root;
     }
     if(rightNode){
         root->right = rightNode;
         rightNode->left = root;
     }
-    if(leftNode)
-    return leftNode;
-    return root;
+    return head;
 }

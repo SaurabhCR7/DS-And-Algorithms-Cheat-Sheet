@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class graph{
+  public:
+  unordered_map<int,list<int>>m;
+  void addEdge(int x,int y){
+    m[x].push_back(y);
+    m[y].push_back(x);
+  }
+  int dfs_helper(int src,unordered_map<int,bool>&visited){
+    visited[src] = true;
+    int count = 0;
+    for(auto i:m[src]){
+      count++;
+      if(!visited[i]){
+        count += dfs_helper(i,visited);
+      }
+    }
+    return count;
+  }
+  int dfs(){
+    unordered_map<int,bool>visited;
+    int count = 0;
+    for(auto i:m){
+      if(!visited[i.first])
+      count = max(count,dfs_helper(i.first,visited));
+    }
+    return count;
+  }
+};
+
+int main()
+{
+  int t;
+  cin>>t;
+  for(int i=0;i<t;i++){
+    int n,m;
+    cin>>n>>m;
+    graph g;
+    for(int j=0;j<m;j++){
+      int x,y;
+      cin>>x>>y;
+      g.addEdge(x,y);
+    }
+    cout<<g.dfs()/2<<endl;
+  }
+  return 0;
+}

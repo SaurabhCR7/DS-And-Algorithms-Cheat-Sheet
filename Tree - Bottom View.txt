@@ -1,22 +1,29 @@
-void print(node* root,map<int,node*>&m,int i){
-	if(!root)
-	return;
-	int hd = 0;
-	root->hd = hd;
-	queue<node*>q;
-	q.push(root);
-	while(!q.empty()){
-		node* temp = q.front();
-		q.pop();
-		hd = temp->hd;
-		m[hd] = temp;
-		if(temp->left){
-			q.push(temp->left);
-			temp->left->hd = hd-1;
-		}
-		if(temp->right){
-			q.push(temp->right);
-			temp->right->hd = hd+1;
-		}
-	}
+vector <int> bottomView(Node *root)
+{
+    vector<int>ans;
+    if(!root)
+    return ans;
+    queue<pair<Node*,int>>q;
+    q.push(make_pair(root,0));
+    map<int,Node*>hd;
+    hd[0] = root;
+    int num = 0;
+    while(!q.empty()){
+        pair<Node*,int>temp;
+        temp = q.front();
+        q.pop();
+        num = temp.second;
+        if(temp.first->left){
+            q.push(make_pair(temp.first->left,num-1));
+            hd[num-1] = temp.first->left;
+        }
+        if(temp.first->right){
+            q.push(make_pair(temp.first->right,num+1));
+            hd[num+1] = temp.first->right;
+        }
+    }
+    for(auto i:hd){
+        ans.push_back(i.second->data);
+    }
+    return ans;
 }

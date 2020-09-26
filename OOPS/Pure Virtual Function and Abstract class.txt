@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+class shape{                            // Abstract Class as it has a pure virtual function 
+    public:
+    virtual void getArea() = 0;         // Pure Virtual function
+};
+
+class circle : public shape{            // If it doesn't override the function then circle will also become a abstract class
+    public:
+    void getArea(){                     // Function overridden
+        cout<<"Enter radius"<<endl;
+        int r;
+        cin>>r;
+        cout<<"Area : "<<(3.14*r*r)<<endl;
+    }
+};
+
+
+int main() {
+    circle obj;
+    obj.getArea();
+    return 0;
+}

@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class node{
+	public:
+	char ch;
+	bool terminal;
+	map<char,node*>m;
+	node(char data){
+		ch = data;
+		terminal = false;
+	}
+};
+
+class trie{
+	node* root;
+	public:
+	trie(){
+		root = new node('\0');
+	}
+	void insert(string word){
+		node* temp = root;
+		for(int i=0;i<word.size();i++){
+			if(temp->m.find(word[i]) == temp->m.end()){
+				node* temp1 = new node(word[i]);
+				temp->m[word[i]] = temp1;
+				temp = temp1;
+			}
+			else
+			temp = temp->m[word[i]];
+		}
+		temp->terminal = true;
+	}
+	void cal(string s,node* temp){
+		for(auto i:temp->m){
+			s.push_back(i.first);
+			if(i.second->terminal)
+			cout<<s<<" ";
+			cal(s,i.second);
+			s.pop_back();
+		}
+	}
+	void print(string prefix){
+		node* temp = root;
+		for(int i=0;i<prefix.size();i++){
+			if(temp->m.find(prefix[i]) == temp->m.end()){
+				cout<<"0"<<endl;
+				return;
+			}
+			else
+			temp = temp->m[prefix[i]];
+		}
+		if(temp->terminal)
+		cout<<prefix<<" ";
+		cal(prefix,temp);
+		cout<<endl;
+	}
+};
+
+int main(){
+	int t;
+	cin>>t;
+	for(int i=0;i<t;i++){
+		int n;
+		cin>>n;
+		trie t;
+		vector<string>dict(n);
+		for(int j=0;j<n;j++){
+			cin>>dict[j];
+			t.insert(dict[j]);
+		}
+		string word;
+		cin>>word;
+		string str;
+		for(int j=0;j<word.size();j++){
+			str.push_back(word[j]);
+			t.print(str);
+		}
+	}
+	return 0;
+}

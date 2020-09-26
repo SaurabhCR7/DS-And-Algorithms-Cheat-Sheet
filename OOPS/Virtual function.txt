@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+class base{
+    public:
+    void show(){
+        cout<<"Base class show function called"<<endl;
+    }
+    
+    virtual void print(){
+        cout<<"Base class print function called"<<endl;
+    }
+};
+
+class derived : public base{
+    public:
+    void show(){            // Overriding the function
+        cout<<"Derived class show function called"<<endl;
+    }
+    
+    void print(){           // Overriding the function using virtual function
+        cout<<"Derived class print function called"<<endl;
+    }
+};
+
+int main() {
+    base *basePtr;
+    derived derivedObj;
+    basePtr = &derivedObj;
+
+    basePtr->show();        // Base class show function is called
+    basePtr->print();       // Derived class print function is called 
+
+    base baseObj;
+    
+    baseObj.show();         // Base class show function is called
+    derivedObj.show();      // Derived class show function is called because virtual functions are needed only when using pointers
+    
+    baseObj.print();        // Base class print function is called
+    derivedObj.print();     // Derived class print function is called
+    return 0;
+}

@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void update(vector<int>&bit,int i,int val){       // Adds val at the given index and doesn't replaces it
+  while(i <= bit.size()){
+    bit[i] += val;
+    i += i&(-i);
+  }
+}
+
+int sum(int i,vector<int>&bit){
+  int sum = 0;
+  while(i > 0){
+    sum += bit[i];
+    i -= i&(-i);
+  }
+  return sum;
+}
+
+int rangeSum(int l,int r,vector<int>&bit){
+  return sum(r,bit) - sum(l,bit);
+}
+
+int main() {
+  int n;
+  cin>>n;
+  int arr[n];
+  vector<int>bit(n+1);
+  for(int i=0;i<=n;i++)
+  bit[i] = 0;
+  for(int i=0;i<n;i++){
+    cin>>arr[i];
+    update(bit,i+1,arr[i]);
+  }
+  cout<<rangeSum(0,4,bit)<<endl;
+  update(bit,2,3);
+  cout<<rangeSum(0,4,bit)<<endl;
+  return 0;
+}

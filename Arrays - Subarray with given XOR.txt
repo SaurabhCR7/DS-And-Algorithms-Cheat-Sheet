@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+int Solution::solve(vector<int> &A, int B) {
+    int x = 0;
+    unordered_map<int,list<int>>m;
+    for(int i=0;i<A.size();i++){
+        x = x^A[i];
+        A[i] = x;
+        m[A[i]].push_back(i);
+    }
+    int count = 0;
+    for(int i=0;i<A.size();i++){
+        if(A[i] == B)
+        count++;
+    }
+    for(int i=0;i<A.size();i++){
+        int target = B^A[i];
+        if(m.find(target) != m.end()){
+            for(auto j:m[target]){
+                if(j > i)
+                count++;
+            }
+        }
+    }
+    return count;
+}

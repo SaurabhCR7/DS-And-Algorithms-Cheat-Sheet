@@ -1,0 +1,44 @@
+/* 
+You are given an array A of size N. Your task is to find the minimum number of operations needed to convert the given array to 'Palindromic Array'.
+Palindromic Array:
+[23,15,23] is a ‘Palindromic Array’ but [2,0,1] is not.
+The only allowed operation is that you can merge two adjacent elements in the array and replace them with their sum.
+
+*/
+
+
+#include<iostream>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+	for(int i=0;i<t;i++)
+	{
+	    int n;
+	    cin>>n;
+	    int arr[n];
+	    for(int j=0;j<n;j++)
+	    cin>>arr[j];
+	    int s=0,e=n-1,count=0;
+	    while(s<=e){
+	        if(arr[s] == arr[e]){
+	            s++;
+	            e--;
+	        }
+	        else if(arr[s] > arr[e]){
+	            e--;
+	            arr[e] += arr[e+1];
+	            count++;
+	        }
+	        else{
+	            s++;
+	            arr[s] += arr[s-1];
+	            count++;
+	        }
+	    }
+	    cout<<count<<endl;
+	}
+	
+	return 0;
+}

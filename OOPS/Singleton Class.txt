@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class singleton{
+    int data;
+    static singleton* instance;
+    singleton(){
+        data = 0;
+    }
+    public:
+    static singleton* getInstance(){
+        if(!instance)
+        instance = new singleton();
+        return instance;
+    }
+    void setData(int x){
+        data = x;
+    }
+    int getData(){
+        return data;
+    }
+};
+
+singleton* singleton::instance = 0;
+
+int main() {
+    singleton* s = s->getInstance();
+    cout<<s->getData()<<endl;
+    s->setData(100);
+    cout<<s->getData()<<endl;
+    
+    singleton* t = t->getInstance();
+    t->setData(201);
+    cout<<t->getData()<<endl;
+    cout<<s->getData()<<endl;
+    return 0;
+}

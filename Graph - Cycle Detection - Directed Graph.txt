@@ -1,0 +1,23 @@
+bool dfs_helper(int x,unordered_map<int,bool>&visited){
+        visited[x] = true;
+        bool ans = false;
+        for(auto i:m[x]){
+            if(visited[i])
+            return true;
+            ans = dfs_helper(i,visited);
+            if(ans)
+            return true;
+        }
+        visited[x] = false;
+        return false;
+    }
+    
+    bool detect(int num,unordered_map<int,bool>&visited){
+        bool cycle = false;
+        for(int i=0;i<num;i++){
+            cycle = dfs_helper(i,visited);
+            if(cycle)
+            return true;
+        }
+        return false;
+    }

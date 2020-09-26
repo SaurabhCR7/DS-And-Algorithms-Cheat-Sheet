@@ -1,0 +1,42 @@
+// Print elements that occur more than n/3 times
+class Solution {
+public:
+    int count(int num,vector<int>&nums){
+        int ans = 0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i] == num)
+            ans++;
+        }
+        return ans;
+    }
+    vector<int> majorityElement(vector<int>& nums) {
+        int n = nums.size();
+        int k = n/3;
+        vector<int>ans;
+        int count1 = 0,count2 = 0;
+        int major1 = -1,major2 = -1;
+        for(int i=0;i<n;i++){
+            if(nums[i] == major1)
+            count1++;
+            else if(nums[i] == major2)
+            count2++;
+            else if(count1 == 0){
+                count1 = 1;
+                major1 = nums[i];
+            }
+            else if(count2 == 0){
+                count2 = 1;
+                major2 = nums[i];
+            }
+            else{
+                count1--;
+                count2--;
+            }
+        }
+        if(count(major1,nums) > k)
+        ans.push_back(major1);
+        if(major1 != major2 and count(major2,nums) > k)
+        ans.push_back(major2);
+        return ans;
+    }
+};

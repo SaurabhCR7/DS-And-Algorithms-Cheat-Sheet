@@ -1,0 +1,38 @@
+#include<iostream>
+using namespace std;
+
+class animal{
+    public:
+    virtual void print(){
+        cout<<"Generic animal"<<endl;
+    }
+};
+
+class cat:public animal{
+    public:
+    void print(){
+        cout<<"Cat"<<endl;
+    }
+};
+
+class dog:public animal{
+    public:
+    void print(){
+        cout<<"Dog"<<endl;
+    }
+};
+
+void function1(animal *xyz){
+    xyz->print();
+}
+
+int main(){
+    animal *ptr;
+    cat catObj;
+    dog dogObj;
+    ptr = &catObj;
+    function1(ptr);         // Cat function called
+    ptr = &dogObj;
+    function1(ptr);         // Dog function called
+    return 0;
+}
