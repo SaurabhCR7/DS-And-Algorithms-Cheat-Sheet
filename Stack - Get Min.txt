@@ -1,0 +1,42 @@
+int minNum = INT_MAX;
+void push(int a)
+{
+    if(s.empty()){
+        s.push(a);
+        minNum = a;
+    }
+    else if(a >= minNum)
+    s.push(a);
+    else{
+        s.push(2*a - minNum);
+        minNum = a;
+    }
+}
+
+bool isFull(int n)
+{
+    if(s.size() >= n)
+    return true;
+    return false;
+}
+
+bool isEmpty()
+{
+    if(s.size() == 0)
+    return true;
+    return false;
+}
+
+int pop()
+{
+    int x = s.top();
+    if(x < minNum)
+    minNum = (2*minNum) - x;
+    s.pop();
+    return x;
+}
+
+int getMin()
+{
+    return minNum;
+}

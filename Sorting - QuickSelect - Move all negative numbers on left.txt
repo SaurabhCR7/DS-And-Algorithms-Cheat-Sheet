@@ -1,0 +1,28 @@
+int partition(int arr[],int s,int e){
+    int size = e-s+1;
+    int pivot = s + (rand()%size);
+    swap(arr[pivot],arr[e]);
+    int i=-1,j=0;
+    while(j < e){
+        if(arr[j] < arr[e]){
+            i++;
+            swap(arr[i],arr[j]);
+        }
+        j++;    
+    }
+    i++;
+    swap(arr[i],arr[e]);
+    return i;    
+}
+
+void quickSelect(int arr[],int s,int e){
+    if(s > e)
+    return;
+    int p = partition(arr,s,e);
+    if(arr[p] ==  0)
+    return;
+    else if(arr[p] > 0)
+    quickSelect(arr,s,p-1);
+    else
+    quickSelect(arr,p+1,e);
+}

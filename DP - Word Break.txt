@@ -1,0 +1,31 @@
+class Solution {
+public:
+    
+    bool check(string str,unordered_map<string,bool>&m,unordered_map<string,bool>&dp){
+        if(str.size() == 0)
+        return true;
+        if(dp.find(str) != dp.end())
+        return dp[str];
+        int size = str.size();
+        for(int i=1;i<=size;i++){
+            bool ans;
+            bool found = m.find(str.substr(0,i)) != m.end();
+            if(found){
+                ans = check(str.substr(i,size-1),m,dp);   
+                dp[str.substr(i,size-1)] = ans;
+                if(ans)
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_map<string,bool>m;
+        for(int i=0;i<wordDict.size();i++)
+        m[wordDict[i]] = true;
+        unordered_map<string,bool>dp;
+        bool ans = check(s,m,dp);
+        return ans;
+    }
+};

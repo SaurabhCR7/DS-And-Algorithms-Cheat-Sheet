@@ -1,0 +1,24 @@
+class Solution{   
+public:
+    int median(vector<vector<int>> &matrix, int r, int c){
+        int minNum = INT_MAX,maxNum = INT_MIN;
+        for(int i=0;i<r;i++){
+            minNum = min(minNum,matrix[i][0]);
+            maxNum = max(maxNum,matrix[i][c-1]);
+        }
+        int count = 0;
+        int desired = (r*c + 1)/2;
+        while(minNum < maxNum){
+            count = 0;
+            int mid = minNum + (maxNum - minNum)/2;
+            for(int i=0;i<r;i++){
+                count += upper_bound(matrix[i].begin(),matrix[i].end(),mid) - matrix[i].begin();
+            }
+            if(count < desired)
+            minNum = mid+1;
+            else
+            maxNum = mid;
+        }
+        return minNum;
+    }
+};

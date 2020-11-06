@@ -3,19 +3,23 @@
 class Solution{
 public:
 	void merge(int arr1[], int arr2[], int n, int m) {
-	    for(int i=0;i<n;i++){
-	        if(arr1[i] > arr2[0]){
-	            swap(arr1[i],arr2[0]);
-	            int j=0;
-	            while(j < m-1 and arr2[j] > arr2[j+1]){
-	                swap(arr2[j],arr2[j+1]);
-	                j++;
-	            }
+	    for(int i=0;i<m;i++){
+	        int last = arr1[n-1];
+	        int idx = upper_bound(arr1,arr1+n,arr2[0]) - arr1;
+	        if(idx == n)
+	        break;
+	        for(int j=n-1;j>idx;j--){
+	            arr1[j] = arr1[j-1];
 	        }
+	        arr1[idx] = arr2[0];
+	        idx = upper_bound(arr2,arr2+m,last) - arr2;
+	        if(idx == 0)
+	        break;
+	        for(int j=0;j<idx-1;j++){
+	            arr2[j] = arr2[j+1];
+	        }
+	        arr2[idx-1] = last; 
 	    }
 	}
 };
-
-// O((n+m)log(n+m)) solution
-// Predefined algorithm
 

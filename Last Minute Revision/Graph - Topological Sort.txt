@@ -1,0 +1,24 @@
+void dfs(int src,unordered_map<int,bool>&visited,stack<int>&st,vector<int> adj[]){
+    visited[src] = true;
+    for(auto i:adj[src]){
+        if(!visited[i]){
+            dfs(i,visited,st,adj);
+        }
+    }
+    st.push(src);
+}
+vector<int> topoSort(int V, vector<int> adj[]) {
+    unordered_map<int,bool>visited;
+    vector<int>ans;
+    stack<int>st;
+    for(int x=0;x<V;x++){
+        if(!visited[x]){
+            dfs(x,visited,st,adj);
+        }
+    }
+    while(!st.empty()){
+        ans.push_back(st.top());
+        st.pop();
+    }
+    return ans;
+}

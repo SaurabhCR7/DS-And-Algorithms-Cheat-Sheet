@@ -1,0 +1,22 @@
+int partition(int arr[],int s,int e){
+    int pivot = arr[e];
+    int i=-1,j=0;
+    while(j<e){
+        if(arr[j] < pivot){
+            i++;
+            swap(arr[i],arr[j]);
+        }
+        j++;
+    }
+    i++;
+    swap(arr[i],arr[e]);
+    return i;
+}
+
+void quickSort(int arr[],int s,int e){
+    if(s>=e)
+    return;
+    int p = partition(arr,s,e);
+    quickSort(arr,s,p-1);
+    quickSort(arr,p+1,e);
+}

@@ -1,36 +1,32 @@
-node* del(node* root,int d){
-	if(!root)
-	return NULL;
-	if(root->data == d){
-		if(root->left==NULL && root->right == NULL){
-			delete root;
-			return NULL;
-		}
-		if(root->left==NULL && root->right != NULL){
-			node* temp = root->right;
-			delete root;
-			return temp;
-		}
-		if(root->left!=NULL && root->right == NULL){
-			node* temp = root;
-			temp = temp->left;
-			delete root;
-			return temp;
-		}
-        node* replace = root->right;
-        while(replace->left != NULL)
-        replace = replace->left;
-        root->data = replace->data;
-        root->right = del(root->right,root->data);
+class Solution {
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(!root)
         return root;
-	}
-    else if(d<root->data){
-	    root->left = del(root->left,d);
-        return root;
-    }
-    else{
-	    root->right = del(root->right,d);
+        if(key == root->val){
+            if(!root->left and !root->right){       // No child
+                delete root;
+                return NULL;
+            }
+            else if(!root->left or !root->right){   // One child
+                TreeNode* temp = root->left ? root->left : root->right;
+                delete root;
+                return temp;
+            }
+            else{                                   // Two Children
+                TreeNode* temp = root->right;
+                while(temp->left){
+                    temp = temp->left;
+                }
+                root->val = temp->val;
+                root->right = deleteNode(root->right,temp->val);
+                return root;
+            }
+        }
+        else if(key < root->val)
+        root->left = deleteNode(root->left,key);
+        else
+        root->right = deleteNode(root->right,key);
         return root;
     }
-	return root;
-}
+};

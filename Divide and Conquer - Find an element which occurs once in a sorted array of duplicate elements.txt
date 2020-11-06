@@ -1,0 +1,32 @@
+class Solution
+{
+  public:
+    int findOnce(int arr[], int n)
+    {
+        int ans = INT_MAX;
+        int s=0,e=n-1;
+        int mid;
+        while(s<=e){
+            mid = (s+e)/2;
+            if(mid%2){
+                if(arr[mid] == arr[mid-1]){
+                    s = mid+1;
+                }
+                else{
+                    ans = arr[mid-1];
+                    e = mid-1;
+                }
+            }
+            else{
+                if(arr[mid] == arr[mid+1]){
+                    s = mid+1;
+                }
+                else{
+                    ans = arr[mid];
+                    e = mid-1;
+                }
+            }
+        }
+        return ans;
+    }
+};

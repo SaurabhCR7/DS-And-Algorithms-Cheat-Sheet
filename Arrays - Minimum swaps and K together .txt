@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+ {
+	int t;
+	cin>>t;
+	for(int i=0;i<t;i++)
+	{
+	    int n;
+	    cin>>n;
+	    int arr[n];
+	    for(int j=0;j<n;j++)
+	    cin>>arr[j];
+	    int k;
+	    cin>>k;
+	    int count = 0;
+	    for(int j=0;j<n;j++){
+	        if(arr[j] <= k)
+	        count++;
+	    }
+	    if(count == 0)
+	    cout<<"0"<<endl;
+	    else{
+	        int s=0,e=count-1;
+    	    int bad = 0,ans;
+    	    for(int i=s;i<=e;i++){
+    	        if(arr[i] > k)
+    	        bad++;
+    	    }
+    	    ans = bad;
+    	    while(e < n-1){
+    	        e++;
+    	        if(arr[e] > k)
+    	        bad++;
+	            if(arr[s] > k)
+	            bad--;
+	            s++;
+    	        ans = min(ans,bad);
+    	    }
+    	    cout<<ans<<endl;
+	    }
+	}
+	
+	return 0;
+}

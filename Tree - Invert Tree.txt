@@ -1,7 +1,0 @@
-void change(TreeNode* A){
-    if(!A)
-    return;
-    change(A->left);
-    change(A->right);
-    swap(A->left, A->right);
-} 

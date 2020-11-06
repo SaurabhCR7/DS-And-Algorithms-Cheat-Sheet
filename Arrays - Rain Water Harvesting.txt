@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        if(n <= 1)
+        return 0;
+        int left=0,right=n-1;
+        int leftMax = 0,rightMax = 0,sum=0;
+        while(left < right){
+            if(height[left] < height[right]){
+                leftMax = max(leftMax,height[left]);
+                sum += leftMax - height[left];
+                left++;
+            }
+            else{
+                rightMax = max(rightMax,height[right]);
+                sum += rightMax - height[right];
+                right--;
+            }
+        }
+        return sum;
+    }
+};

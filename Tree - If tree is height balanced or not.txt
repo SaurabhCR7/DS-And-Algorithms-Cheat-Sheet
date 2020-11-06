@@ -1,22 +1,21 @@
-Class Pair{
-    public:
-    int height;
-    bool isBalanced;
-};
-
-Pair checkBalanced(node* root){
-    Pair p;
-    if(!root){
-        p.height = 0;
-        p.isBalanced = true;
-        return p;
+int height(TreeNode* root,bool &ans){
+        if(!root)
+        return 0;
+        if(!ans)
+        return -1;
+        int leftAns = height(root->left,ans);
+        int rightAns = height(root->right,ans);
+        if(abs(leftAns-rightAns) > 1){
+            ans = false;
+            return -1;
+        }
+        return max(leftAns,rightAns)+1;
     }
-    Pair left = checkBalanced(root->left);
-    Pair right = checkBalanced(root->right);
-    p.height = max(left.height,right.height)+1;
-    if(abs(left.height - right.height) <= 1 && left.isBalanced && right.isBalanced)
-    p.isBalanced = true;
-    else
-    p.isBalanced = false;
-    return p;
-}
+    
+    bool isBalanced(TreeNode* root) {
+        if(!root)
+        return true;
+        bool ans = true;
+        height(root,ans);
+        return ans;
+    }

@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void solve(vector<int>&candidates,int target,int i,vector<int>&temp,vector<vector<int>>&ans){
+        int n = candidates.size();
+        if(target == 0){
+            ans.push_back(temp);
+            return;
+        }
+        for(int j=i;j<n;j++){
+            if(target-candidates[j] >= 0){
+                temp.push_back(candidates[j]);
+                solve(candidates,target-candidates[j],j,temp,ans);
+                temp.pop_back();    
+            }
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>>ans;
+        vector<int>temp;
+        sort(candidates.begin(),candidates.end());
+        solve(candidates,target,0,temp,ans);
+        return ans;
+    }
+};

@@ -1,25 +1,30 @@
-#include <iostream>
-using namespace std;
-
-class myClass{
+class base{
     public:
-    int x;
+    int a;
+    int b;
     static int count;
-    myClass(){
+    base(){
+        cout<<"Constructor"<<endl;
         count++;
+        cout<<count<<endl;
     }
 
     static int getCount(){
-        return count;        // Can only access static members
+        return count;
     }
 };
 
-int myClass :: count = 0;
-
+int base :: count = 0; 
 int main() {
-    cout<<"Initial count : "<<myClass::count<<endl;   
-    myClass obj1;
-    cout<<"Count after one object : "<<myClass::count<<endl;  
-    cout<<myClass::getCount()<<endl; 
+    cout<<base::getCount()<<endl;  // 0
+    cout<<base::count<<endl;    // 0
+    base obj;
+    cout<<obj.count<<endl;      // 1
+    base obj1;
+    cout<<obj.count<<endl;      // 2
+    base *ptr = new base;       
+    cout<<ptr->count<<endl;     // 3
+    cout<<base::count<<endl;    // 3
+    obj.getCount();             // 3
     return 0;
 }

@@ -1,0 +1,33 @@
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        if(nums1.size() > nums2.size())
+        return findMedianSortedArrays(nums2,nums1);
+        int sizex = nums1.size();
+        int sizey = nums2.size();
+        int mid1,mid2;
+        int s=0,e = nums1.size();
+        bool odd = false;
+        if((sizex+sizey)%2 == 1)
+        odd = true;
+        while(s <= e){
+            mid1 = (s+e)/2;
+            mid2 = ((sizex+sizey+1)/2) - mid1;
+            int maxLeftX = mid1 == 0 ? INT_MIN/2 : nums1[mid1-1];
+            int maxLeftY = mid2 == 0 ? INT_MIN/2 : nums2[mid2-1];
+            int minRightX = mid1 == sizex ? INT_MAX/2 : nums1[mid1];
+            int minRightY = mid2 == sizey ? INT_MAX/2 : nums2[mid2];
+            if(maxLeftX <= minRightY and maxLeftY <= minRightX){
+                if(odd)
+                return (double)max(maxLeftX,maxLeftY);
+                else
+                return (double)(max(maxLeftX,maxLeftY)+min(minRightY,minRightX))/2;
+            }
+            else if(maxLeftX > minRightY)
+            e = mid1-1;
+            else
+            s = mid1 + 1;
+        }
+        return -1;
+    }
+};

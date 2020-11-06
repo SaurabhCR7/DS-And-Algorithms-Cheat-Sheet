@@ -1,0 +1,13 @@
+Node* reverseDLL(Node * head)
+{
+    if(!head or !head->next){
+        head->prev = NULL;
+        return head;
+    }
+    Node* temp = head->next;
+    Node* newHead = reverseDLL(head->next);
+    temp->next = head;
+    head->prev = temp;
+    head->next = NULL;
+    return newHead;
+}

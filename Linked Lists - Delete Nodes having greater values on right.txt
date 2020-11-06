@@ -1,0 +1,32 @@
+Node* reverse(Node* head){
+    if(!head or !head->next)
+    return head;
+    Node* temp = head->next;
+    Node* newHead = reverse(head->next);
+    temp->next = head;
+    head->next = NULL;
+    return newHead;
+}
+
+Node *compute(Node *head)
+{
+    if(!head or !head->next)
+    return head;
+    head = reverse(head);
+    
+    Node* curr = head->next;
+    Node* prev = head;
+    while(curr){
+        while(curr and curr->data < prev->data){
+            curr = curr->next;
+        }
+        if(curr){
+            prev->next = curr;
+            prev = curr;
+            curr = curr->next;
+        }
+    } 
+    prev->next = NULL;
+    head = reverse(head);
+    return head;
+}

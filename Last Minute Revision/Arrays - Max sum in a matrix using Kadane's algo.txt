@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int maxSum(int v[],int n){
+    int curr_sum=0,max_sum=INT_MIN;
+    bool pos = false;
+    int minMax = INT_MIN;
+    for(int i=0;i<n;i++){
+        if(v[i] >= 0){
+            pos = true;
+            break;
+        }
+        minMax = max(minMax,v[i]);
+    }
+    if(!pos)
+    return minMax;
+    for(int i=0;i<n;i++){
+        curr_sum += v[i];
+        if(curr_sum < 0)
+        curr_sum = 0;
+        max_sum = max(max_sum,curr_sum);
+    }
+    return max_sum;
+}
+
+int main()
+ {
+	int t;
+	cin>>t;
+	for(int i=0;i<t;i++)
+	{
+	    int n,m;
+	    cin>>n>>m;
+	    int arr[n][m];
+	    for(int j=0;j<n;j++){
+	        for(int k=0;k<m;k++)
+	        cin>>arr[j][k];
+	    }
+	    int v[n];
+	    int ans = INT_MIN;
+	    for(int j=0;j<m;j++){
+	        for(int x=0;x<n;x++)
+	        v[x] = 0;
+	        for(int x=j;x<m;x++){
+    	          for(int k=0;k<n;k++)
+    	          v[k] += arr[k][x];
+    	          ans = max(ans,maxSum(v,n));
+	        }
+	    }
+	    cout<<ans<<endl;
+	}
+	
+	return 0;
+}
+
+
+
+
+

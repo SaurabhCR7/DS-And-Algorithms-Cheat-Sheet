@@ -1,0 +1,20 @@
+int sum(Node* root){
+    if(!root)
+    return 0;
+    int rightSum = root->right != NULL ? root->right->data : 0;
+    int leftSum = root->left != NULL ? root->left->data : 0;
+    int leftAns = sum(root->left);
+    int rightAns = sum(root->right);
+    int sum = 0;
+    sum += leftAns + rightAns + leftSum + rightSum;
+    root->data = sum;
+    return sum;
+}
+
+void toSumTree(Node *node)
+{
+    if(!node)
+    return;
+    sum(node);
+    
+}

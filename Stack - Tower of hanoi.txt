@@ -1,9 +1,0 @@
-void answer(int n,char source,char helper,char destination){
-    if(n==1){
-        cout<<"Moving ring "<<n<<" from "<<source<<" to "<<destination<<endl;
-        return;
-    }
-    answer(n-1,source,destination,helper);
-    cout<<"Moving ring "<<n<<" from "<<source<<" to "<<destination<<endl;
-    answer(n-1,helper,source,destination);
-}

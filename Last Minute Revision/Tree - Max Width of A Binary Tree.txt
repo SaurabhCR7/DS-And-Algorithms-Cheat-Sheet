@@ -1,0 +1,50 @@
+/*
+    	  1
+         /  
+        3    
+       / \       
+      5   3
+
+Output : 2
+
+ 	  1
+         / \
+        3   2
+       /     \  
+      5       9 
+     /         \
+    6           7
+
+Output : 8 
+
+*/
+
+class Solution {
+public:
+    int widthOfBinaryTree(TreeNode* root) {
+        unsigned long long int ans = 0;
+        if(!root)
+        return 0;
+        queue<pair<TreeNode*,unsigned long long int>>q;
+        q.push(make_pair(root,0));
+        int size;
+        while(!q.empty()){
+            size = q.size();
+            pair<TreeNode*,unsigned long long int>firstIndex;
+            pair<TreeNode*,unsigned long long int>lastIndex;
+            firstIndex = q.front();
+            while(size--){
+                lastIndex = q.front();
+                pair<TreeNode*,unsigned long long int>temp;
+                temp = q.front();
+                q.pop();
+                if(temp.first->left)
+                q.push(make_pair(temp.first->left,2*temp.second));
+                if(temp.first->right)
+                q.push(make_pair(temp.first->right,(2*temp.second)+1));
+            }
+            ans = max(ans,lastIndex.second-firstIndex.second+1);
+        }
+        return ans;
+    }
+};

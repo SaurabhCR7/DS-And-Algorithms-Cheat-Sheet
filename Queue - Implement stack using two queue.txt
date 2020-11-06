@@ -1,0 +1,54 @@
+// Making Push costly
+
+void QueueStack :: push(int x)	// Reverse all elements using q2
+{   
+    if(q1.empty())
+    q1.push(x);
+    else{
+        while(!q1.empty()){
+            q2.push(q1.front());
+            q1.pop();
+        }
+        q1.push(x);
+        while(!q2.empty()){
+            q1.push(q2.front());
+            q2.pop();
+        }
+    }
+}
+
+int QueueStack :: pop()
+{
+    if(q1.empty())
+    return -1;
+    int num = q1.front();
+    q1.pop();
+    return num;
+}
+
+
+// Making pop costly
+
+/* The method push to push element into the stack */
+void QueueStack :: push(int x)
+{   
+    q1.push(x);
+}
+
+/*The method pop which return the element poped out of the stack*/
+int QueueStack :: pop()
+{
+    if(q1.empty())
+    return -1;
+    while(q1.size() > 1){
+        q2.push(q1.front());
+        q1.pop();
+    }
+    int num = q1.front();
+    q1.pop();
+    while(!q2.empty()){
+        q1.push(q2.front());
+        q2.pop();
+    }
+    return num;
+}

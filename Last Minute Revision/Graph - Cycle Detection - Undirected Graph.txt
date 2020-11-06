@@ -1,0 +1,27 @@
+
+bool dfs_helper(int src,unordered_map<int,bool>&visited,int parent,vector<int>g[]){
+    visited[src] = true;
+    for(auto i:g[src]){
+        if(!visited[i]){
+            bool check = dfs_helper(i,visited,src,g);
+            if(check)
+            return true;
+        }
+        else if(parent != i)    // Checking that the neighbour node is not the parent of the source node
+        return true;
+    }
+    return false;
+}
+
+bool isCyclic(vector<int> g[], int V)
+{
+    unordered_map<int,bool>visited;
+    for(int i=0;i<V;i++){
+        if(!visited[i]){
+            bool check = dfs_helper(i,visited,-1,g);
+            if(check)
+            return true;
+        }
+    }
+    return false;
+}

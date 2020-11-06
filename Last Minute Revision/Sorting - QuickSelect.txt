@@ -1,0 +1,41 @@
+// Average Time Complexity = O(n)
+// Worst Case Time Complexity = O(n^2)
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int partition(int arr[],int s,int e){
+    int pivot = arr[e];
+    int i=s-1,j;
+    for(j=s;j<e;j++){
+        if(arr[j] <= pivot){
+            i++;
+            swap(arr[j],arr[i]);
+        }
+    }
+    swap(arr[i+1],arr[e]);
+    return i+1;
+}
+
+int quickselect(int arr[],int s,int e,int t){
+    if(s>e)
+    return -1;
+    int p = partition(arr,s,e);
+    if(p+1 == t)
+    return arr[p];
+    else if(p+1 > t)
+    return quickselect(arr,s,p-1,t);
+    else
+    return quickselect(arr,p+1,e,t);
+    return -1;
+}
+
+int main() {
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++)
+    cin>>arr[i];
+    cout<<quickselect(arr,0,n-1,1);
+    return 0;
+}

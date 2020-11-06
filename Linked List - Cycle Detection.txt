@@ -1,23 +1,30 @@
-ListNode* Solution::detectCycle(ListNode* A) {
-    if(!A->next || !A->next->next)
-    return NULL;
-    ListNode* fast = A;
-    ListNode* slow = A;
-    bool cycle = false;
-    while(fast && fast->next){
-        fast = fast->next->next;
+void removeLoop(Node* head)
+{
+    if(!head or !head->next)
+    return;
+    Node* fast = head;
+    Node* slow = head;
+    while(fast and fast->next){
         slow = slow->next;
-        if(fast == slow){
-            cycle = true;
-            slow = A;
-            break;
-        }
+        fast = fast->next->next;
+        if(!fast or !fast->next)
+        return;
+        if(fast == slow)
+        break;
     }
-    if(!cycle)
-    return NULL;
+    fast = head;
+    if(fast == slow){
+        while(fast->next != slow)
+        fast = fast->next;
+        fast->next = NULL;
+        return;
+    }
+    Node* prev = slow;
     while(fast != slow){
+        prev = slow;
         fast = fast->next;
         slow = slow->next;
     }
-    return fast;
+    prev->next = NULL;
+    Node* temp = head;
 }

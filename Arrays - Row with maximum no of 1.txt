@@ -1,0 +1,18 @@
+class Solution{
+public:
+	int rowWithMax1s(vector<vector<int> > arr, int n, int m) {
+	    int idx=m-1;
+	    int row = 0;
+	    for(int i=0;i<n;i++){
+	        if(arr[i][idx] == 1){
+	            row = i;
+	            while(arr[i][idx] == 1)
+	            idx--;
+	        }
+	    }
+	    if(idx == m-1)
+	    return -1;
+	    return row;
+	}
+
+};

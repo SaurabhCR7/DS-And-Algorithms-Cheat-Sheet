@@ -1,0 +1,31 @@
+int partition(int arr[],int s,int e){
+    if(s == e)
+    return s;
+    int size = e-s+1;
+    int randomPivot = s + (rand()%size);
+    swap(arr[randomPivot],arr[e]);
+    int pivot = arr[e];
+    int i=-1,j=0;
+    while(j < e){
+        if(arr[j] < pivot){
+            i++;
+            swap(arr[j],arr[i]);
+        }
+        j++;
+    }
+    i++;
+    swap(arr[i],arr[e]);
+    return i;
+}
+
+int quickSelect(int arr[],int s,int e,int k){
+    if(s > e)
+    return -1;
+    int p = partition(arr,s,e);
+    if(p+1 == k)
+    return arr[p];
+    else if(p+1 > k)
+    return quickSelect(arr,s,p-1,k);
+    else
+    return quickSelect(arr,p+1,e,k);
+}

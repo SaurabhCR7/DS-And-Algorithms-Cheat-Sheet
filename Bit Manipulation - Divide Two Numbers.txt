@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+Left Shift by 1 : Multiply by 2
+Right Shift by 1 : Divide by 2
+*/
+
+int main() {
+    int n,m;
+    cin>>n>>m;
+    //Find n/m
+    int ans = 0;
+    while(n >= m){
+        int x = 0;
+        while(n >= (m<<x)){
+            x++;
+        }
+        x--;
+        ans += (1<<x);
+        n = n - (m<<x);
+    }
+    cout<<ans<<endl;
+    return 0;
+}
