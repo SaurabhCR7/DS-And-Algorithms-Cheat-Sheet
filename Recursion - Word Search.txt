@@ -1,0 +1,44 @@
+class Solution {
+public:
+    
+    int x[4] = {-1,1,0,0};
+    int y[4] = {0,0,1,-1};
+    
+    bool ans(vector<vector<char>>&board,string &word,int i,int j,int idx){
+        int n = board.size();
+        int m = board[0].size();
+        if(i < 0 or i >= n or j < 0 or j >= m)
+        return false;
+        if(word[idx] != board[i][j])
+        return false;
+        if(idx == word.size()-1)
+        return true;
+        bool found = false;
+        char ch = board[i][j];
+        board[i][j] = '*';
+        
+        for(int ptr = 0;ptr<4;ptr++){
+            found = ans(board,word,i+x[ptr],j+y[ptr],idx+1);
+            if(found){
+                board[i][j] = ch;
+                return true;
+            }
+        }
+        board[i][j] = ch;
+        return false;
+    }
+    
+    bool exist(vector<vector<char>>& board, string word) {
+        bool found = false;
+        for(int i=0;i<board.size();i++){
+            for(int j=0;j<board[0].size();j++){
+                if(board[i][j] == word[0]){
+                    found = ans(board,word,i,j,0);
+                    if(found)
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};

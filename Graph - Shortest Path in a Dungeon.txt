@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+using namespace std;
+  
+int dx[4] = {0,0,-1,1};
+int dy[4] = {-1,1,0,0};
+ 
+string steps = "LRUD";
+ 
+int main() {
+    int n,m;
+    cin>>n>>m; 
+    vector<vector<char>>v(n,vector<char>(m,'.'));
+    int dist[n][m];
+    int prevStep[n][m];
+    pair<int,int>src;
+    pair<int,int>dest;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            cin>>v[i][j];
+            if(v[i][j] == 'A')
+            src = make_pair(i,j);
+            if(v[i][j] == 'B')
+            dest = make_pair(i,j);
+ 
+            dist[i][j] = -1;
+            prevStep[i][j] = -1;
+        }
+    }
+    queue<pair<int,int>>q;
+    q.push(src);
+    dist[src.first][src.second] = 0;
+    while(!q.empty()){
+        pair<int,int>temp = q.front();
+        q.pop();
+        if(temp == dest)
+        break;
+        int x = temp.first, y = temp.second;
+        
+        for(int i=0;i<4;i++){
+            int ptrx = x+dx[i];
+            int ptry = y+dy[i];
+            if(ptrx < 0 or ptrx >= n or ptry < 0 or ptry >= m)
+            continue;
+            if(v[ptrx][ptry] == '#')
+            continue;
+            if(dist[ptrx][ptry] != -1)
+            continue;
+            dist[ptrx][ptry] = dist[x][y] + 1;
+            q.push(make_pair(ptrx,ptry));
+            prevStep[ptrx][ptry] = i; 
+        }
+    }
+    if(dist[dest.first][dest.second] == -1)
+    cout<<"NO"<<endl;
+    else{
+        cout<<"YES"<<endl;
+        cout<<dist[dest.first][dest.second]<<endl;
+        string path;
+        while(dest != src){
+            int ptrx = dest.first, ptry = dest.second;
+            int diff = prevStep[ptrx][ptry];
+            path.push_back(steps[diff]);
+            ptrx = ptrx - dx[diff];
+            ptry = ptry - dy[diff];
+            dest = {ptrx,ptry};
+        }
+        reverse(path.begin(),path.end());
+        cout<<path<<endl;
+    }
+    return 0;
+}
