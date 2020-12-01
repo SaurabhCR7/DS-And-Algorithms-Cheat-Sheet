@@ -1,0 +1,57 @@
+// Bellman Ford Algorithm is Single Source Shortest Path Algorithm . 
+// It can detect -ve edge weight cycle (having -ve total cost) but Djikstra Algo cannot.
+// If an undirected graph has a negative edge then it will have a -ve edge weight cycle.
+// Bellman ford and Djisktra Algo fail if there is -ve edge weight cycle
+// To find max distance from source to destination, we will change the sign of all weights.
+// And then find shortest path
+
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long int
+#define INF 1e17
+#define NINF (-1)*(1e17)
+
+int32_t main() {
+    int n,m;
+    cin>>n>>m;
+    pair<int,pair<int,int>>g[m];
+    for(int i=0;i<m;i++){
+        int x,y,w;
+        cin>>x>>y>>w;
+        g[i] = {x,{y,-w}};	// For maximum path else use +w
+    }
+
+    int dist[n+1];
+    for(int i=0;i<=n;i++)
+    dist[i] = INF;
+    dist[1] = 0;
+
+    for(int i=1;i<=n-1;i++){
+        for(int j=0;j<m;j++){
+            int src = g[j].first;
+            int dest = g[j].second.first;
+            int weight = g[j].second.second;
+            if(dist[src] == INF)
+            continue;
+            if(dist[src] + weight < dist[dest])
+            dist[dest] = dist[src] + weight;
+        }
+    }
+
+    for(int i=1;i<=n-1;i++){
+        for(int j=0;j<m;j++){
+            int src = g[j].first;
+            int dest = g[j].second.first;
+            int weight = g[j].second.second;
+            if(dist[src] == INF)
+            continue;
+            if(dist[src] + weight < dist[dest])
+            dist[dest] = NINF;
+        }
+    }
+    if(dist[n] == NINF)
+    cout<<"-1"<<endl;
+    else
+    cout<<(-1)*dist[n]<<endl;
+    return 0;
+}
