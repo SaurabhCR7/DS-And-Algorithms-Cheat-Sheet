@@ -1,0 +1,41 @@
+bool dfs_helper(int src,unordered_map<int,bool>&visited,unordered_map<int,int>&par){
+    visited[src] = true;
+    for(auto i:m[src]){
+        if(visited[i] and par[src] != i){
+            int dest = i;
+            vector<int>ans;
+            while(src != dest){
+                ans.push_back(src);
+                src = par[src];
+            }
+            ans.push_back(dest);
+            ans.push_back(ans[0]);
+            cout<<ans.size()<<endl;
+            for(int i=0;i<ans.size();i++)
+            cout<<ans[i]<<" ";
+            return true;
+        }
+        bool ans = false;
+        if(!visited[i]){
+            par[i] = src;
+            ans = dfs_helper(i,visited,par);
+            if(ans)
+            return true;
+        }
+    }
+    return false;
+}
+
+void dfs(int n){
+    unordered_map<int,bool>visited;
+    unordered_map<int,int>par;
+    for(int i=1;i<=n;i++){
+        if(!visited[i]){
+            par[i] = -1;
+            bool ans = dfs_helper(i,visited,par);
+            if(ans)
+            return;
+        }
+    }
+    cout<<"IMPOSSIBLE"<<endl;
+}

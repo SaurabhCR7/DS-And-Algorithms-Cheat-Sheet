@@ -14,7 +14,7 @@ bool dfs_helper(int src,unordered_map<int,bool>&visited){
     bool cycle(int n){
         unordered_map<int,bool>visited;
         for(int i=0;i<n;i++){
-            if(!visited[i]){
+            if(visited.find(i) == visited.end()){
                 bool ans = dfs_helper(i,visited);
                 if(ans)
                 return true;

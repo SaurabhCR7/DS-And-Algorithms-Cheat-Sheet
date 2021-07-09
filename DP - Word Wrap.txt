@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void print(int path[],int n){
+    if(path[n] == 1 )
+    cout<<path[n]<<" "<<n<<" ";
+    else{
+        print(path,path[n]-1);
+        cout<<path[n]<<" "<<n<<" ";
+    }
+}
+
+int main()
+ {
+	int t;
+	cin>>t;
+	for(int i=0;i<t;i++)
+	{
+	    int n;
+	    cin>>n;
+	    int arr[n];
+	    for(int j=0;j<n;j++)
+	    cin>>arr[j];
+	    int m;
+	    cin>>m;
+	    int extra[n+1][n+1];
+	    for(int j=1;j<=n;j++){
+	        extra[j][j] = m - arr[j-1];
+	        for(int k=j+1;k<=n;k++)
+            extra[j][k] = extra[j][k-1] - arr[k-1] - 1;
+	    }
+	    int dp[n+1][n+1];
+        for(int j=1;j<=n;j++){
+            for(int k=j;k<=n;k++){
+                if(extra[j][k] < 0)
+                dp[j][k] = INT_MAX;
+                else if(k == n and extra[j][k] >= 0)
+                dp[j][k] = 0;
+                else
+                dp[j][k] = extra[j][k]*extra[j][k]; 
+            } 
+        }
+	    int cost[n+1];
+	    int path[n+1];
+	    cost[0] = 0;
+	    for(int j=1;j<=n;j++){
+	        cost[j] = INT_MAX;
+	        for(int k=1;k<=j;k++){
+	            if(cost[k-1] != INT_MAX and dp[k][j] != INT_MAX and cost[j] > cost[k-1] + dp[k][j]){
+	                cost[j] = cost[k-1] + dp[k][j];
+	                path[j] = k;
+	            }
+	        }
+	    }
+        print(path,n);
+	    cout<<endl;
+	}
+	
+	return 0;
+}
