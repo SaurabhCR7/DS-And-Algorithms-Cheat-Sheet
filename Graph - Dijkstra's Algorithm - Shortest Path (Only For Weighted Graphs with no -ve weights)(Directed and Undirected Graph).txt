@@ -1,31 +1,54 @@
-void distance(int src,int v){
-	unordered_map<int,int>dist;
-	for(int i=1;i<=v;i++)
-	dist[i] = INT_MAX;
-	set<pair<int,int>>st;
-	dist[src] = 0;
-	st.insert(make_pair(0,src));
-	while(!st.empty()){
-		pair<int,int>temp = *(st.begin());
-		st.erase(temp);
-		int node = temp.second;
-		int nodeDist = temp.first;
-		for(auto i:m[node]){
-			if(dist[i.first] > nodeDist+i.second){
-				pair<int,int>p = make_pair(dist[i.first],i.first);
-				if(st.find(p) != st.end())
-				st.erase(p);
-				dist[i.first] = nodeDist + i.second;
-				st.insert(make_pair(dist[i.first],i.first));
-			}
-		}
-	}
-  for(int i=1;i<=v;i++){
-    if(i != src){
-      if(dist[i] == INT_MAX)
-      cout<<"-1 ";
-      else
-      cout<<dist[i]<<" ";
+#include <bits/stdc++.h>
+using namespace std;
+
+class graph{
+    public:
+    unordered_map<int,vector<pair<int,int>>>m;
+    void addEdge(int x,int y,int w){
+        m[x].push_back({y,w});
+        m[y].push_back({x,w});
     }
-  }
+
+    void bfs(int src,int n){
+        int dist[n];
+        for(int i=0;i<n;i++)
+        dist[i] = INT_MAX;
+        set<pair<int,int>>st;
+        st.insert({0,src});
+        dist[src] = 0;
+        while(!st.empty()){
+            pair<int,int>temp = *(st.begin());
+            st.erase(temp);
+            int node = temp.second;
+            int nodeDist = temp.first;
+            for(auto i:m[node]){
+                if(dist[i.first] > nodeDist + i.second){
+                    if(st.find({dist[i.first],i.first}) != st.end())
+                    st.erase({dist[i.first],i.first});
+                    dist[i.first] = nodeDist + i.second;
+                    st.insert({dist[i.first],i.first});
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            cout<<dist[i]<<endl;
+        }
+    }
+};
+
+int main() {
+    int n;
+    cin>>n;
+    int e;
+    cin>>e;
+    graph g;
+    for(int i=0;i<e;i++){
+        int u,v,w;
+        cin>>u>>v>>w;
+        g.addEdge(u,v,w);
+    }
+    int src;
+    cin>>src;
+    g.bfs(src,n);
+    return 0;
 }
