@@ -9,7 +9,7 @@ for(int i=0;i<n;i++){
 // If all numbers are negative then pick the maximum one
 if(maxSum == 0){
    maxSum = arr[0];
-   for(int i=0;i<n;i++){
+   for(int i=1;i<n;i++){
      if(maxSum < arr[i])
        maxSum = arr[i];   
    }	
